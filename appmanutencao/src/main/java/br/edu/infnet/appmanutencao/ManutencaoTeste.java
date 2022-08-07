@@ -16,21 +16,21 @@ public class ManutencaoTeste implements ApplicationRunner {
 		System.out.println("#Manutencao");
 		
 		Manutencao m1 = new Manutencao();
-		m1.box = 1;
-		m1.placa = "JKO-0001";
-		m1.valor = BigDecimal.ONE;
+		m1.setBox(1);
+		m1.setPlaca("JKO-0001");
+		m1.setValor(BigDecimal.ONE);
 		System.out.println(m1);
 		
 		Manutencao m2 = new Manutencao();
-		m2.box = 2;
-		m2.placa = "JKO-0002";
-		m2.valor = BigDecimal.ONE;
+		m2.setBox(2);
+		m2.setPlaca("JKO-0002");
+		m2.setValor(BigDecimal.ONE);
 		System.out.println(m2);
 		
 		Manutencao m3 = new Manutencao();
-		m3.box = 3;
-		m3.placa = "JKO-0003";
-		m3.valor = BigDecimal.ONE;
+		m3.setBox(3);
+		m3.setPlaca("JKO-0003");
+		m3.setValor(BigDecimal.ONE);
 		System.out.println(m3);
 	}
 

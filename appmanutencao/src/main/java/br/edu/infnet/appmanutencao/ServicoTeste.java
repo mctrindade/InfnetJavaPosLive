@@ -17,21 +17,21 @@ public class ServicoTeste implements ApplicationRunner {
 		System.out.println("#Servico");
 		
 		Servico s1 = new Servico();
-		s1.descricao = "Servico 1";
-		s1.tipo = 1;
-		s1.valor = new BigDecimal("101");
+		s1.setDescricao("Servico 1");
+		s1.setTipo(1);
+		s1.setValor(new BigDecimal("101"));
 		System.out.println(s1);
 		
 		Servico s2 = new Servico();
-		s2.descricao = "Servico 2";
-		s2.tipo = 2;
-		s2.valor = new BigDecimal("102");
+		s2.setDescricao("Servico 2");
+		s2.setTipo(2);
+		s2.setValor(new BigDecimal("102"));
 		System.out.println(s2);
 		
 		Servico s3 = new Servico();
-		s3.descricao = "Servico 3";
-		s3.tipo = 3;
-		s3.valor = new BigDecimal("1032");
+		s3.setDescricao("Servico 3");
+		s3.setTipo(3);
+		s3.setValor(new BigDecimal("1032"));
 		System.out.println(s3);
 	}
 

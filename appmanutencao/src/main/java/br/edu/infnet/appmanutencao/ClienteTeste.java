@@ -13,22 +13,13 @@ public class ClienteTeste implements ApplicationRunner {
 	public void run(ApplicationArguments args) throws Exception {
 		System.out.println("#Cliente");
 		
-		Cliente m1 = new Cliente();
-		m1.nome ="Cliente1";
-		m1.cpf = "12345678910";
-		m1.telefone = "32170000";
+		Cliente m1 = new Cliente("Cliente1","12345678910","32170000");
 		System.out.println(m1);
 		
-		Cliente m2 = new Cliente();
-		m2.nome ="Cliente2";
-		m2.cpf = "12345678911";
-		m2.telefone = "32170001";
+		Cliente m2 = new Cliente("Cliente2","12345678911","32170001");
 		System.out.println(m2);
 		
-		Cliente m3 = new Cliente();
-		m3.nome ="Cliente3";
-		m3.cpf = "12345678912";
-		m3.telefone = "32170001";
+		Cliente m3 = new Cliente("Cliente3","12345678912","32170002");
 		System.out.println(m3);
 	}
 
