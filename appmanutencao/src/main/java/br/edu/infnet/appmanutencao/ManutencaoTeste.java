@@ -1,6 +1,6 @@
 package br.edu.infnet.appmanutencao;
 
-import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -18,19 +18,19 @@ public class ManutencaoTeste implements ApplicationRunner {
 		Manutencao m1 = new Manutencao();
 		m1.setBox(1);
 		m1.setPlaca("JKO-0001");
-		m1.setValor(BigDecimal.ONE);
+		m1.setData(LocalDate.now());
 		System.out.println(m1);
 		
 		Manutencao m2 = new Manutencao();
 		m2.setBox(2);
 		m2.setPlaca("JKO-0002");
-		m2.setValor(BigDecimal.ONE);
+		m1.setData(LocalDate.now());
 		System.out.println(m2);
 		
 		Manutencao m3 = new Manutencao();
 		m3.setBox(3);
 		m3.setPlaca("JKO-0003");
-		m3.setValor(BigDecimal.ONE);
+		m1.setData(LocalDate.now());
 		System.out.println(m3);
 	}
 

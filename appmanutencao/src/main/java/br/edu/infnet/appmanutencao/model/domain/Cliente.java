@@ -40,4 +40,9 @@ public class Cliente {
 	public String toString() {
 		return "Cliente [nome=" + nome + ", cpf=" + cpf + ", telefone=" + telefone + "]";
 	}
+	
+	public void impressao() {
+		System.out.println("#cliente");
+		System.out.println(this);
+	}
 }

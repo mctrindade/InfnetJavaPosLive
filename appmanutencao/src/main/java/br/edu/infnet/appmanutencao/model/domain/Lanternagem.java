@@ -4,7 +4,16 @@ public class Lanternagem extends Servico{
 
 	private String cor;
 	private String local;
-	private String reparo;
+	private float valorReparo;
+	
+	@Override
+	public float calcularVenda() {
+		System.out.println("calcular venda - lanternagem");
+		
+		float valorLanternagem = valorReparo * 2;
+		
+		return getValor() + valorLanternagem;
+	}
 	
 	public String getCor() {
 		return cor;
@@ -21,17 +30,23 @@ public class Lanternagem extends Servico{
 	public void setLocal(String local) {
 		this.local = local;
 	}
-
-	public String getReparo() {
-		return reparo;
+	
+	public float getValorReparo() {
+		return valorReparo;
 	}
 
-	public void setReparo(String reparo) {
-		this.reparo = reparo;
+	public void setValorReparo(float valorReparo) {
+		this.valorReparo = valorReparo;
 	}
 
 	@Override
 	public String toString() {
-		return "Lanternagem [cor=" + cor + ", local=" + local + ", reparo=" + reparo + super.toString() + "]";
+		return "Lanternagem [cor=" + cor + ", local=" + local + ", valorReparo=" + valorReparo + super.toString() + "]";
+	}
+
+	@Override
+	public void impressao() {
+		System.out.println("#lanternagem");
+		System.out.println(this);
 	}
 }

@@ -1,12 +1,12 @@
 package br.edu.infnet.appmanutencao.model.domain;
 
-import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class Manutencao {
 	
 	private int box;
 	private String placa;
-	private BigDecimal valor= BigDecimal.ZERO;
+	private LocalDate data;
 	
 	public int getBox() {
 		return box;
@@ -24,16 +24,21 @@ public class Manutencao {
 		this.placa = placa;
 	}
 
-	public BigDecimal getValor() {
-		return valor;
+	public LocalDate getData() {
+		return data;
 	}
 
-	public void setValor(BigDecimal valor) {
-		this.valor = valor;
+	public void setData(LocalDate data) {
+		this.data = data;
 	}
 
 	@Override
 	public String toString() {
-		return "Manutencao [box=" + box + ", placa=" + placa + ", valor=" + valor + "]";
+		return "Manutencao [box=" + box + ", placa=" + placa + ", data=" + data + "]";
+	}
+	
+	public void impressao() {
+		System.out.println("#manutencao");
+		System.out.println(this);
 	}
 }

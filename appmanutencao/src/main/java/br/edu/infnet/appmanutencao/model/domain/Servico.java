@@ -1,12 +1,18 @@
 package br.edu.infnet.appmanutencao.model.domain;
 
-import java.math.BigDecimal;
-
-public class Servico {
+public abstract class Servico {
 	
 	private String descricao;
 	private int tipo;
-	private BigDecimal valor = BigDecimal.ZERO;
+	private float valor;
+	
+	public float calcularVenda() {
+		System.out.println("calcular venda - mãe");
+		
+		return valor * 2;
+	}
+	
+	public abstract void impressao();
 	
 	public String getDescricao() {
 		return descricao;
@@ -24,17 +30,17 @@ public class Servico {
 		this.tipo = tipo;
 	}
 
-	public BigDecimal getValor() {
+	public float getValor() {
 		return valor;
 	}
 
-	public void setValor(BigDecimal valor) {
+	public void setValor(float valor) {
 		this.valor = valor;
 	}
 
 	@Override
 	public String toString() {
-		return "Servico [descricao=" + descricao + ", tipo=" + tipo + ", valor=" + valor + "]";
+		return "Servico [descricao=" + descricao + ", tipo=" + tipo + ", valor=" + valor + calcularVenda()+ "]";
 	}
 	
 	

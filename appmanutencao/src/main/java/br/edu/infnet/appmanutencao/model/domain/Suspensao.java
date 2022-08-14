@@ -6,6 +6,15 @@ public class Suspensao extends Servico{
 	private String amortecedor;
 	private String mola;
 	
+	@Override
+	public float calcularVenda() {
+		System.out.println("calcular venda - suspensao");
+		
+		float valorAmortecedor = pneu == 18 ? 10:15;
+		
+		return super.calcularVenda() +valorAmortecedor ;
+	}
+	
 	public int getPneu() {
 		return pneu;
 	}
@@ -33,5 +42,11 @@ public class Suspensao extends Servico{
 	@Override
 	public String toString() {
 		return "Suspensao [pneu=" + pneu + ", amortecedor=" + amortecedor + ", mola=" + mola + super.toString() +"]";
+	}
+
+	@Override
+	public void impressao() {
+		System.out.println("#suspensao");
+		System.out.println(this);
 	}
 }

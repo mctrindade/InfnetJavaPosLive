@@ -34,6 +34,12 @@ public class Motor extends Servico{
 	public String toString() {
 		return "Motor [cilindro=" + cilindro + ", tamanho=" + tamanho + ", combustivel=" + combustivel + super.toString() + "]";
 	}
+
+	@Override
+	public void impressao() {
+		System.out.println("#motor");
+		System.out.println(this);
+	}
 	
 	
 }

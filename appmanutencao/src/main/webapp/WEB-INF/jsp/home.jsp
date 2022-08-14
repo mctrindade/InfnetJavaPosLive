@@ -3,11 +3,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>AppServico</title>
 </head>
 <body>
+	<nav class="navbar navbar-expand-sm bg-light navbar-light">
+		<div class="container-fluid">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
+				<li class="nav-item"><a class="nav-link" href="/suspensao/lista">Suspensão</a></li>
+				<li class="nav-item"><a class="nav-link" href="/motor/lista">Motor</a></li>
+				<li class="nav-item"><a class="nav-link" href="/lanternagem/lista">Lanternagem</a></li>
+				<li class="nav-item"><a class="nav-link" href="/cliente/lista">Cliente</a></li>
+				<li class="nav-item"><a class="nav-link" href="/manutencao/lista">Manutenção</a></li>
+				<li class="nav-item"><a class="nav-link" href="/servico/lista">Servico</a></li>
+			</ul>
+		</div>
+	</nav>
+
 	<div class="container mt-3">
 		<h2>AppServico</h2>
 		<p>Projeto de controle de serviços oficina</p>
@@ -27,9 +43,9 @@
 					<td>Descrição do Serviço</td>
 				</tr>
 				<tr>
-					<td>tipo</td>
+					<td>situacao</td>
 					<td>int</td>
-					<td>Tipo do servico</td>
+					<td>Situação do servico</td>
 				</tr>
 				<tr>
 					<td>valor</td>
@@ -108,14 +124,14 @@
 					<td>Número do Box onde será realizado o serviço</td>
 				</tr>
 				<tr>
-					<td>plana</td>
+					<td>placa</td>
 					<td>String</td>
 					<td>Número da plada do veículo</td>
 				</tr>
 				<tr>
-					<td>valor</td>
-					<td>BigDecimal</td>
-					<td>Valor total da manutenção</td>
+					<td>Data</td>
+					<td>LocalDate</td>
+					<td>Data de agendamento do serviço</td>
 				</tr>
 			</tbody>
 		</table>
