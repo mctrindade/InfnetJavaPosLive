@@ -2,7 +2,9 @@ package br.edu.infnet.appmanutencao.model.domain;
 
 import java.time.LocalDate;
 
-public class Manutencao {
+import br.edu.infnet.appmanutencao.interfaces.IPrinter;
+
+public class Manutencao implements IPrinter {
 	
 	private int box;
 	private String placa;
@@ -36,9 +38,11 @@ public class Manutencao {
 	public String toString() {
 		return "Manutencao [box=" + box + ", placa=" + placa + ", data=" + data + "]";
 	}
-	
+
+	@Override
 	public void impressao() {
 		System.out.println("#manutencao");
 		System.out.println(this);
+		
 	}
 }

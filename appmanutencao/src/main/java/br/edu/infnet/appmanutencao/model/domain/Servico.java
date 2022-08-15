@@ -1,18 +1,14 @@
 package br.edu.infnet.appmanutencao.model.domain;
 
-public abstract class Servico {
+import br.edu.infnet.appmanutencao.interfaces.IPrinter;
+
+public abstract class Servico implements IPrinter{
 	
 	private String descricao;
-	private int tipo;
+	private int situacao;
 	private float valor;
 	
-	public float calcularVenda() {
-		System.out.println("calcular venda - mãe");
-		
-		return valor * 2;
-	}
-	
-	public abstract void impressao();
+	public abstract float calcularVenda();
 	
 	public String getDescricao() {
 		return descricao;
@@ -22,12 +18,12 @@ public abstract class Servico {
 		this.descricao = descricao;
 	}
 
-	public int getTipo() {
-		return tipo;
+	public int getSituacao() {
+		return situacao;
 	}
 
-	public void setTipo(int tipo) {
-		this.tipo = tipo;
+	public void setSituacao(int situacao) {
+		this.situacao = situacao;
 	}
 
 	public float getValor() {
@@ -40,8 +36,6 @@ public abstract class Servico {
 
 	@Override
 	public String toString() {
-		return "Servico [descricao=" + descricao + ", tipo=" + tipo + ", valor=" + valor + calcularVenda()+ "]";
+		return "Servico [descricao=" + descricao + ", situacao=" + situacao + ", valor=" + valor + calcularVenda()+ "]";
 	}
-	
-	
 }

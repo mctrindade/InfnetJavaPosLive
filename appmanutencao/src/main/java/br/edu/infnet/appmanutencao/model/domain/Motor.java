@@ -40,6 +40,11 @@ public class Motor extends Servico{
 		System.out.println("#motor");
 		System.out.println(this);
 	}
+
+	@Override
+	public float calcularVenda() {
+		return getValor() *2;
+	}
 	
 	
 }

@@ -1,6 +1,8 @@
 package br.edu.infnet.appmanutencao.model.domain;
 
-public class Cliente {
+import br.edu.infnet.appmanutencao.interfaces.IPrinter;
+
+public class Cliente implements IPrinter {
 	
 	private String nome;
 	private String cpf;
@@ -11,38 +13,16 @@ public class Cliente {
 		this.cpf = cpf;
 		this.telefone = telefone;
 	}
-	
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
 
 	@Override
 	public String toString() {
 		return "Cliente [nome=" + nome + ", cpf=" + cpf + ", telefone=" + telefone + "]";
 	}
-	
+
+	@Override
 	public void impressao() {
 		System.out.println("#cliente");
 		System.out.println(this);
+		
 	}
 }
