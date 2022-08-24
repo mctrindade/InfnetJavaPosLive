@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.Set;
 
 import br.edu.infnet.appmanutencao.interfaces.IPrinter;
+import br.edu.infnet.appmanutencao.model.domain.exceptions.ClienteNuloException;
+import br.edu.infnet.appmanutencao.model.domain.exceptions.ManutencaoSemServicosException;
 
 public class Manutencao implements IPrinter {
 	
@@ -14,9 +16,23 @@ public class Manutencao implements IPrinter {
 	private Cliente cliente;
 	private Set<Servico> servicos;
 	
-	public Manutencao(Cliente cliente) {
+	public Manutencao(Cliente cliente, Set<Servico> servicos) throws ClienteNuloException, ManutencaoSemServicosException {
+		
+		if(cliente == null) {
+			throw new ClienteNuloException("Impossivel criar uma Manutenção sem um Cliente!");
+		}
+		
+		if(servicos == null) {
+			throw new ManutencaoSemServicosException("Impossivel criar uma manutenção sem uma listagem de serviços!");
+		}
+		
+		if(servicos.size() < 1) {
+			throw new ManutencaoSemServicosException("Impossivel criar uma manutenção com menos de um serviço!");
+		}
+		
 		this.data = LocalDate.now();
 		this.cliente  = cliente;
+		this.servicos = servicos;
 	}
 	
 	public Integer getId() {
@@ -49,14 +65,6 @@ public class Manutencao implements IPrinter {
 
 	public void setData(LocalDate data) {
 		this.data = data;
-	}
-
-	public Set<Servico> getServicos() {
-		return servicos;
-	}
-
-	public void setServicos(Set<Servico> servicos) {
-		this.servicos = servicos;
 	}
 
 	@Override

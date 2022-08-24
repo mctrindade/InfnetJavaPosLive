@@ -1,5 +1,7 @@
 package br.edu.infnet.appmanutencao.model.domain;
 
+import br.edu.infnet.appmanutencao.model.domain.exceptions.ValorReparoZeradoException;
+
 public class Lanternagem extends Servico{
 	
 	private Integer id;
@@ -8,9 +10,11 @@ public class Lanternagem extends Servico{
 	private float valorReparo;
 	
 	@Override
-	public float calcularVenda() {
+	public float calcularVenda() throws ValorReparoZeradoException {
 		System.out.println("calcular venda - lanternagem");
-		
+		if(valorReparo < 0f) {
+			throw new ValorReparoZeradoException("Valor do reparo ("+ valorReparo + ") não pode ser menor que 0");
+		}
 		float valorLanternagem = valorReparo * 2;
 		
 		return getValor() + valorLanternagem;

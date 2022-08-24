@@ -1,5 +1,7 @@
 package br.edu.infnet.appmanutencao.model.domain;
 
+import br.edu.infnet.appmanutencao.model.domain.exceptions.TamanhoPneuInvalidoException;
+
 public class Suspensao extends Servico{
 	
 	private Integer id;
@@ -8,8 +10,12 @@ public class Suspensao extends Servico{
 	private String mola;
 	
 	@Override
-	public float calcularVenda() {
+	public float calcularVenda() throws TamanhoPneuInvalidoException {
 		System.out.println("calcular venda - suspensao");
+		
+		if(pneu < 15) {
+			throw new TamanhoPneuInvalidoException("Tamanho do pneu ("+ pneu + ") não pode ser menor que 15");
+		}
 		
 		float valorAmortecedor = pneu == 18 ? 10:15;
 		

@@ -1,5 +1,7 @@
 package br.edu.infnet.appmanutencao.model.domain;
 
+import br.edu.infnet.appmanutencao.model.domain.exceptions.TamanhoMotorFracoException;
+
 public class Motor extends Servico{
 	
 	private Integer id;
@@ -51,8 +53,13 @@ public class Motor extends Servico{
 	}
 
 	@Override
-	public float calcularVenda() {
-		return getValor() *2;
+	public float calcularVenda() throws TamanhoMotorFracoException {
+		
+		if(tamanho < 1.4f) {
+			throw new TamanhoMotorFracoException("Tamanho do motor ("+ tamanho + ") não pode ser menor que 1.4");
+		}
+		Double tamanhoDobrado = tamanho * 2d;
+		return getValor() * 2 + tamanhoDobrado.floatValue();
 	}
 	
 	

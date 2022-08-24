@@ -3,6 +3,9 @@ package br.edu.infnet.appmanutencao.model.domain;
 import java.util.Objects;
 
 import br.edu.infnet.appmanutencao.interfaces.IPrinter;
+import br.edu.infnet.appmanutencao.model.domain.exceptions.TamanhoMotorFracoException;
+import br.edu.infnet.appmanutencao.model.domain.exceptions.TamanhoPneuInvalidoException;
+import br.edu.infnet.appmanutencao.model.domain.exceptions.ValorReparoZeradoException;
 
 public abstract class Servico implements IPrinter{
 	
@@ -10,7 +13,7 @@ public abstract class Servico implements IPrinter{
 	private int situacao;
 	private float valor;
 	
-	public abstract float calcularVenda();
+	public abstract float calcularVenda() throws TamanhoPneuInvalidoException, TamanhoMotorFracoException, ValorReparoZeradoException;
 	
 	public String getDescricao() {
 		return descricao;
@@ -55,6 +58,6 @@ public abstract class Servico implements IPrinter{
 
 	@Override
 	public String toString() {
-		return "Servico [descricao=" + descricao + ", situacao=" + situacao + ", valor=" + valor + calcularVenda()+ "]";
+		return "Servico [descricao=" + descricao + ", situacao=" + situacao + ", valor=" + valor + "]";
 	}
 }

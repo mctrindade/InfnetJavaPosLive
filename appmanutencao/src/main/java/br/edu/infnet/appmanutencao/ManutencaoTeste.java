@@ -14,12 +14,15 @@ import br.edu.infnet.appmanutencao.model.domain.Manutencao;
 import br.edu.infnet.appmanutencao.model.domain.Motor;
 import br.edu.infnet.appmanutencao.model.domain.Servico;
 import br.edu.infnet.appmanutencao.model.domain.Suspensao;
+import br.edu.infnet.appmanutencao.model.domain.exceptions.ClienteNuloException;
+import br.edu.infnet.appmanutencao.model.domain.exceptions.CpfInvalidoException;
+import br.edu.infnet.appmanutencao.model.domain.exceptions.ManutencaoSemServicosException;
 
 @Component
 public class ManutencaoTeste implements ApplicationRunner {
 
 	@Override
-	public void run(ApplicationArguments args) throws Exception {
+	public void run(ApplicationArguments args) {
 		System.out.println("#Manutencao");
 		
 		Lanternagem la = new Lanternagem();
@@ -54,45 +57,77 @@ public class ManutencaoTeste implements ApplicationRunner {
 		su.setMola("helicoidais");
 		su.setPneu(15);
 		
-		Set<Servico> listaServicoM1 = new HashSet<>();
-		listaServicoM1.add(la2);
-		listaServicoM1.add(la);
-		listaServicoM1.add(mo);
-		listaServicoM1.add(la2);
-		listaServicoM1.add(su);
+		try {
+			Set<Servico> listaServicoM1 = new HashSet<>();
+			listaServicoM1.add(la2);
+			listaServicoM1.add(la);
+			listaServicoM1.add(mo);
+			listaServicoM1.add(la2);
+			listaServicoM1.add(su);
+			
+			Cliente c1 = new Cliente("Cliente1","12345678910","32170000");
+			Manutencao m1 = new Manutencao(c1, listaServicoM1);
+			m1.setBox(1);
+			m1.setPlaca("JKO-0001");
+			ManutencaoController.incluir(m1);
+		} catch (CpfInvalidoException | ClienteNuloException | ManutencaoSemServicosException e) {
+			System.out.println("[ERRO] - CLIENTE " + e.getMessage());
+		}
 		
-		Cliente c1 = new Cliente("Cliente1","12345678910","32170000");
+		try {
+			Set<Servico> listaServicoM2 = new HashSet<>();
+			listaServicoM2.add(su);
+			
+			Cliente c2 = new Cliente("Cliente2", "12345678911", "32170001");
+			Manutencao m2 = new Manutencao(c2, listaServicoM2);
+			m2.setBox(2);
+			m2.setPlaca("JKO-0002");
+			ManutencaoController.incluir(m2);
+		} catch (CpfInvalidoException | ClienteNuloException | ManutencaoSemServicosException e) {
+			System.out.println("[ERRO] - CLIENTE " + e.getMessage());
+		}
 		
-		Manutencao m1 = new Manutencao(c1);
-		m1.setBox(1);
-		m1.setPlaca("JKO-0001");
-		m1.setServicos(listaServicoM1);
-		ManutencaoController.incluir(m1);
+		try {
+			Set<Servico> listaServicoM3 = new HashSet<>();
+			listaServicoM3.add(la);
+			listaServicoM3.add(mo);
+			listaServicoM3.add(su);
+
+			Cliente c3 = new Cliente("Cliente3", "12345678912", "32170002");
+			Manutencao m3 = new Manutencao(null, listaServicoM3);
+			m3.setBox(3);
+			m3.setPlaca("JKO-0003");
+			ManutencaoController.incluir(m3);
+		} catch (CpfInvalidoException | ClienteNuloException | ManutencaoSemServicosException e) {
+			System.out.println("[ERRO] - CLIENTE " + e.getMessage());
+		}
 		
-		Set<Servico> listaServicoM2 = new HashSet<>();
-		listaServicoM2.add(su);
+		try {
+			Set<Servico> listaServicoM4 = new HashSet<>();
+			listaServicoM4.add(la);
+			listaServicoM4.add(mo);
+			listaServicoM4.add(su);
+
+			Cliente c4 = new Cliente("Cliente4", "12345678912", "32170002");
+			Manutencao m4 = new Manutencao(c4, listaServicoM4);
+			m4.setBox(4);
+			m4.setPlaca("JKO-0004");
+			ManutencaoController.incluir(m4);
+		} catch (CpfInvalidoException | ClienteNuloException | ManutencaoSemServicosException e) {
+			System.out.println("[ERRO] - CLIENTE " + e.getMessage());
+		}
 		
-		Cliente c2 = new Cliente("Cliente2","12345678911","32170001");
-		
-		Manutencao m2 = new Manutencao(c2);
-		m2.setBox(2);
-		m2.setPlaca("JKO-0002");
-		m2.setServicos(listaServicoM2);
-		ManutencaoController.incluir(m2);
-		
-		
-		Set<Servico> listaServicoM3 = new HashSet<>();
-		listaServicoM3.add(la);
-		listaServicoM3.add(mo);
-		listaServicoM3.add(su);
-		
-		Cliente c3 = new Cliente("Cliente3","12345678912","32170002");
-		
-		Manutencao m3 = new Manutencao(c3);
-		m3.setBox(3);
-		m3.setPlaca("JKO-0003");
-		m3.setServicos(listaServicoM3);
-		ManutencaoController.incluir(m3);
+		try {
+			Set<Servico> listaServicoM5 = null;
+
+			Cliente c5 = new Cliente("Cliente4", "12345678912", "32170002");
+			Manutencao m5 = new Manutencao(c5, listaServicoM5);
+			m5.setBox(4);
+			m5.setPlaca("JKO-0004");
+			ManutencaoController.incluir(m5);
+		} catch (CpfInvalidoException | ClienteNuloException | ManutencaoSemServicosException e) {
+			System.out.println("[ERRO] - CLIENTE " + e.getMessage());
+		}
 	}
 
 }
