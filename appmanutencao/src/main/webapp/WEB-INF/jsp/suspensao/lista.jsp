@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -31,39 +32,29 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
+					<th>id</th>
 					<th>valor</th>
 					<th>descricao</th>
 					<th>situação</th>
 					<th>pneu</th>
 					<th>amortecedor</th>
 					<th>mola</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>10.00</td>
-					<td>Serviço de Lanternagem - Porta</td>
-					<td>Aguardando</td>
-					<td>14</td>
-					<td>dianteiro</td>
-					<td>dianteira</td>
-				</tr>
-				<tr>
-					<td>Serviço de Lanternagem - Capuz</td>
-					<td>Iniciado</td>
-					<td>16v</td>
-					<td>15</td>
-					<td>dianteiro</td>
-					<td>dianteira</td>
-				</tr>
-				<tr>
-					<td>30.00</td>
-					<td>Serviço de Lanternagem - Porta Mala</td>
-					<td>Finalizado</td>
-					<td>16</td>
-					<td>traseiro</td>
-					<td>transeira</td>
-				</tr>
+				<c:forEach var="s" items="${listagem}">
+					<tr>
+						<td>${s.id}</td>
+						<td>${s.valor}</td>
+						<td>${s.descricao}</td>
+						<td>${s.situacao}</td>
+						<td>${s.pneu}</td>
+						<td>${s.amortecedor}</td>
+						<td>${s.mola}</td>
+						<td><a href="/suspensao/${s.id}/excluir">excluir</a>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>

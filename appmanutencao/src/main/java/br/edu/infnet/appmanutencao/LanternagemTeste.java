@@ -4,8 +4,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import br.edu.infnet.appmanutencao.controller.LanternagemController;
 import br.edu.infnet.appmanutencao.model.domain.Lanternagem;
-import br.edu.infnet.appmanutencao.model.test.AppImpressao;
 
 @Component
 public class LanternagemTeste implements ApplicationRunner{
@@ -21,8 +21,7 @@ public class LanternagemTeste implements ApplicationRunner{
 		l1.setCor("azul");
 		l1.setLocal("porta do motorista");
 		l1.setValorReparo(23);
-		System.out.println(l1);
-		AppImpressao.relatorio("Inclusao lanternagem 1",l1);
+		LanternagemController.incluir(l1);
 		
 		Lanternagem l2 = new Lanternagem();
 		l2.setDescricao("Servico 2");
@@ -31,8 +30,7 @@ public class LanternagemTeste implements ApplicationRunner{
 		l2.setCor("vermelho");
 		l2.setLocal("capuz");
 		l2.setValorReparo(12);
-		System.out.println(l2);
-		AppImpressao.relatorio("Inclusao lanternagem 2",l2);
+		LanternagemController.incluir(l2);
 		
 		Lanternagem l3 = new Lanternagem();
 		l3.setDescricao("Servico 3");
@@ -41,9 +39,7 @@ public class LanternagemTeste implements ApplicationRunner{
 		l3.setCor("verde");
 		l3.setLocal("porta mala");
 		l3.setValorReparo(3);
-		System.out.println(l3);
-		AppImpressao.relatorio("Inclusao lanternagem 3",l3);
-		
+		LanternagemController.incluir(l3);
 	}
 
 }

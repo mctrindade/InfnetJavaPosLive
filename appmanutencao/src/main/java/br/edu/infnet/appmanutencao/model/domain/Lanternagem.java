@@ -1,7 +1,8 @@
 package br.edu.infnet.appmanutencao.model.domain;
 
 public class Lanternagem extends Servico{
-
+	
+	private Integer id;
 	private String cor;
 	private String local;
 	private float valorReparo;
@@ -15,6 +16,14 @@ public class Lanternagem extends Servico{
 		return getValor() + valorLanternagem;
 	}
 	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getCor() {
 		return cor;
 	}
@@ -41,7 +50,7 @@ public class Lanternagem extends Servico{
 
 	@Override
 	public String toString() {
-		return "Lanternagem [cor=" + cor + ", local=" + local + ", valorReparo=" + valorReparo + super.toString() + "]";
+		return "Lanternagem [id="+ id+", cor=" + cor + ", local=" + local + ", valorReparo=" + valorReparo + super.toString() + "]";
 	}
 
 	@Override

@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -31,6 +32,7 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
+					<th>id</th>
 					<th>valor</th>
 					<th>descricao</th>
 					<th>situação</th>
@@ -40,30 +42,18 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>10.00</td>
-					<td>Serviço de Lanternagem - Porta</td>
-					<td>Aguardando</td>
-					<td>8v</td>
-					<td>2</td>
-					<td>Alcool</td>
-				</tr>
-				<tr>
-					<td>20.00</td>
-					<td>Serviço de Lanternagem - Capuz</td>
-					<td>Iniciado</td>
-					<td>16v</td>
-					<td>4</td>
-					<td>Alcool</td>
-				</tr>
-				<tr>
-					<td>30.00</td>
-					<td>Serviço de Lanternagem - Porta Mala</td>
-					<td>Finalizado</td>
-					<td>8v</td>
-					<td>4</td>
-					<td>Flex/td>
-				</tr>
+				<c:forEach var="m" items="${listagem}">
+					<tr>
+						<td>${m.id}</td>
+						<td>${m.valor}</td>
+						<td>${m.descricao}</td>
+						<td>${m.situacao}</td>
+						<td>${m.cilindro}</td>
+						<td>${m.tamanho}</td>
+						<td>${m.combustivel}</td>
+						<td><a href="/motor/${m.id}/excluir">excluir</a>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>

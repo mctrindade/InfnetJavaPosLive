@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -31,27 +32,22 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
+					<th>id</th>
 					<th>box</th>
 					<th>placa</th>
 					<th>data</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>01</td>
-					<td>JKO-2354</td>
-					<td>10/08/2022</td>
-				</tr>
-				<tr>
-					<td>02</td>
-					<td>JKO-5423</td>
-					<td>19/08/2022</td>
-				</tr>
-				<tr>
-					<td>01</td>
-					<td>JKO-5432</td>
-					<td>20/08/2022</td>
-				</tr>
+				<c:forEach var="m" items="${listagem}">
+					<tr>
+						<td>${m.id}</td>
+						<td>${m.box}</td>
+						<td>${m.placa}</td>
+						<td>${m.data}</td>
+						<td><a href="/manutencao/${m.id}/excluir">excluir</a>
+					</tr>
+				</c:forEach>				
 			</tbody>
 		</table>
 	</div>

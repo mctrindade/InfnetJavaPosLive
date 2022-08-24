@@ -2,10 +2,19 @@ package br.edu.infnet.appmanutencao.model.domain;
 
 public class Motor extends Servico{
 	
+	private Integer id;
 	private String cilindro;
 	private double tamanho;
 	private String combustivel;
-		
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getCilindro() {
 		return cilindro;
 	}
@@ -32,7 +41,7 @@ public class Motor extends Servico{
 
 	@Override
 	public String toString() {
-		return "Motor [cilindro=" + cilindro + ", tamanho=" + tamanho + ", combustivel=" + combustivel + super.toString() + "]";
+		return "Motor [id= "+ id +", cilindro=" + cilindro + ", tamanho=" + tamanho + ", combustivel=" + combustivel + super.toString() + "]";
 	}
 
 	@Override

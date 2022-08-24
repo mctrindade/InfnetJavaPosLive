@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -31,6 +32,7 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
+					<th>id</th>
 					<th>valor</th>
 					<th>descricao</th>
 					<th>situação</th>
@@ -40,30 +42,18 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>10.00</td>
-					<td>Serviço de Lanternagem - Porta</td>
-					<td>Aguardando</td>
-					<td>Azul</td>
-					<td>Porta</td>
-					<td>10.00</td>
-				</tr>
-				<tr>
-					<td>20.00</td>
-					<td>Serviço de Lanternagem - Capuz</td>
-					<td>Iniciado</td>
-					<td>Verde</td>
-					<td>Capuz</td>
-					<td>20.00/td>
-				</tr>
-				<tr>
-					<td>30.00</td>
-					<td>Serviço de Lanternagem - Porta Mala</td>
-					<td>Finalizado</td>
-					<td>Porta Mala</td>
-					<td>Porta Mala</td>
-					<td>30.00</td>
-				</tr>
+			<c:forEach var="l" items="${listagem}">
+					<tr>
+						<td>${l.id}</td>
+						<td>${l.valor}</td>
+						<td>${l.descricao}</td>
+						<td>${l.situacao}</td>
+						<td>${l.cor}</td>
+						<td>${l.local}</td>
+						<td>${l.valor}</td>
+						<td><a href="/lanternagem/${l.id}/excluir">excluir</a>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>

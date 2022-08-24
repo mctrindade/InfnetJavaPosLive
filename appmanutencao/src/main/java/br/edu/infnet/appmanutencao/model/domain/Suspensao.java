@@ -2,6 +2,7 @@ package br.edu.infnet.appmanutencao.model.domain;
 
 public class Suspensao extends Servico{
 	
+	private Integer id;
 	private int pneu;
 	private String amortecedor;
 	private String mola;
@@ -15,6 +16,14 @@ public class Suspensao extends Servico{
 		return getValor() * 2 +valorAmortecedor ;
 	}
 	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public int getPneu() {
 		return pneu;
 	}
@@ -41,7 +50,7 @@ public class Suspensao extends Servico{
 
 	@Override
 	public String toString() {
-		return "Suspensao [pneu=" + pneu + ", amortecedor=" + amortecedor + ", mola=" + mola + super.toString() +"]";
+		return "Suspensao [id= "+id+", pneu=" + pneu + ", amortecedor=" + amortecedor + ", mola=" + mola + super.toString() +"]";
 	}
 	
 	@Override

@@ -4,8 +4,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import br.edu.infnet.appmanutencao.controller.SuspensaoController;
 import br.edu.infnet.appmanutencao.model.domain.Suspensao;
-import br.edu.infnet.appmanutencao.model.test.AppImpressao;
 
 @Component
 public class SuspensaoTeste implements ApplicationRunner {
@@ -21,8 +21,7 @@ public class SuspensaoTeste implements ApplicationRunner {
 		s1.setAmortecedor("dianteiro");
 		s1.setMola("helicoidais");
 		s1.setPneu(15);
-		
-		AppImpressao.relatorio("Inclusao suspensão 1",s1);
+		SuspensaoController.incluir(s1);
 		
 		Suspensao s2 = new Suspensao();
 		s2.setDescricao("Servico 2");
@@ -31,7 +30,7 @@ public class SuspensaoTeste implements ApplicationRunner {
 		s2.setAmortecedor("traseiro");
 		s2.setMola("flexão");
 		s2.setPneu(16);
-		AppImpressao.relatorio("Inclusao suspensão 2",s2);
+		SuspensaoController.incluir(s2);
 		
 		Suspensao s3 = new Suspensao();
 		s3.setDescricao("Servico 3");
@@ -40,7 +39,7 @@ public class SuspensaoTeste implements ApplicationRunner {
 		s3.setAmortecedor("dianteiro");
 		s3.setMola("dianteiflexora");
 		s3.setPneu(18);
-		AppImpressao.relatorio("Inclusao suspensão 3",s3);
+		SuspensaoController.incluir(s3);
 	}
 
 }

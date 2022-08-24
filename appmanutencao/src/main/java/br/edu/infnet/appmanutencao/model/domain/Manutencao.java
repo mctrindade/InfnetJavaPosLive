@@ -7,6 +7,7 @@ import br.edu.infnet.appmanutencao.interfaces.IPrinter;
 
 public class Manutencao implements IPrinter {
 	
+	private Integer id;
 	private int box;
 	private String placa;
 	private LocalDate data;
@@ -16,6 +17,14 @@ public class Manutencao implements IPrinter {
 	public Manutencao(Cliente cliente) {
 		this.data = LocalDate.now();
 		this.cliente  = cliente;
+	}
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public int getBox() {
@@ -33,6 +42,14 @@ public class Manutencao implements IPrinter {
 	public void setPlaca(String placa) {
 		this.placa = placa;
 	}
+	
+	public LocalDate getData() {
+		return data;
+	}
+
+	public void setData(LocalDate data) {
+		this.data = data;
+	}
 
 	public Set<Servico> getServicos() {
 		return servicos;
@@ -44,7 +61,7 @@ public class Manutencao implements IPrinter {
 
 	@Override
 	public String toString() {
-		return "Manutencao [box=" + box + ", placa=" + placa + ", data=" + data +" "+ cliente + servicos.size()+ "]";
+		return "Manutencao [id="+id+", box=" + box + ", placa=" + placa + ", data=" + data +" "+ cliente + servicos.size()+ "]";
 	}
 
 	@Override

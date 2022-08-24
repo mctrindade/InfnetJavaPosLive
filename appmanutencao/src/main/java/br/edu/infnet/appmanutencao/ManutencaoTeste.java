@@ -7,13 +7,13 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import br.edu.infnet.appmanutencao.controller.ManutencaoController;
 import br.edu.infnet.appmanutencao.model.domain.Cliente;
 import br.edu.infnet.appmanutencao.model.domain.Lanternagem;
 import br.edu.infnet.appmanutencao.model.domain.Manutencao;
 import br.edu.infnet.appmanutencao.model.domain.Motor;
 import br.edu.infnet.appmanutencao.model.domain.Servico;
 import br.edu.infnet.appmanutencao.model.domain.Suspensao;
-import br.edu.infnet.appmanutencao.model.test.AppImpressao;
 
 @Component
 public class ManutencaoTeste implements ApplicationRunner {
@@ -67,7 +67,7 @@ public class ManutencaoTeste implements ApplicationRunner {
 		m1.setBox(1);
 		m1.setPlaca("JKO-0001");
 		m1.setServicos(listaServicoM1);
-		AppImpressao.relatorio("Inclusão manutencao 1", m1);
+		ManutencaoController.incluir(m1);
 		
 		Set<Servico> listaServicoM2 = new HashSet<>();
 		listaServicoM2.add(su);
@@ -78,7 +78,7 @@ public class ManutencaoTeste implements ApplicationRunner {
 		m2.setBox(2);
 		m2.setPlaca("JKO-0002");
 		m2.setServicos(listaServicoM2);
-		AppImpressao.relatorio("Inclusão manutencao 21", m2);
+		ManutencaoController.incluir(m2);
 		
 		
 		Set<Servico> listaServicoM3 = new HashSet<>();
@@ -92,7 +92,7 @@ public class ManutencaoTeste implements ApplicationRunner {
 		m3.setBox(3);
 		m3.setPlaca("JKO-0003");
 		m3.setServicos(listaServicoM3);
-		AppImpressao.relatorio("Inclusão manutencao 3", m3);
+		ManutencaoController.incluir(m3);
 	}
 
 }

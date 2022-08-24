@@ -4,8 +4,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import br.edu.infnet.appmanutencao.controller.MotorController;
 import br.edu.infnet.appmanutencao.model.domain.Motor;
-import br.edu.infnet.appmanutencao.model.test.AppImpressao;
 
 @Component
 public class MotorTeste implements ApplicationRunner{
@@ -21,8 +21,7 @@ public class MotorTeste implements ApplicationRunner{
 		m1.setCilindro("em linha");
 		m1.setTamanho(1.4d);
 		m1.setCombustivel("gasolina");
-		System.out.println(m1);
-		AppImpressao.relatorio("Inclusao motor 1",m1);
+		MotorController.incluir(m1);
 		
 		Motor m2 = new Motor();
 		m2.setDescricao("Servico 2");
@@ -31,8 +30,7 @@ public class MotorTeste implements ApplicationRunner{
 		m2.setCilindro("em V");
 		m2.setTamanho(1.8d);
 		m2.setCombustivel("alcool");
-		System.out.println(m2);
-		AppImpressao.relatorio("Inclusao motor 2",m2);
+		MotorController.incluir(m2);
 		
 		Motor m3 = new Motor();
 		m3.setDescricao("Servico 3");
@@ -41,8 +39,7 @@ public class MotorTeste implements ApplicationRunner{
 		m3.setCilindro("radial");
 		m3.setTamanho(2.0d);
 		m3.setCombustivel("gasolina/alcool");
-		System.out.println(m3);
-		AppImpressao.relatorio("Inclusao motor 3",m3);
+		MotorController.incluir(m3);
 	}
 
 }
