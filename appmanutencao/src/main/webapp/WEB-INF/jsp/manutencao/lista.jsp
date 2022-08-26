@@ -36,6 +36,8 @@
 					<th>box</th>
 					<th>placa</th>
 					<th>data</th>
+					<th>cliente</th>
+					<th>serviços</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -45,6 +47,8 @@
 						<td>${m.box}</td>
 						<td>${m.placa}</td>
 						<td>${m.data}</td>
+						<td>${m.cliente}</td>
+						<td>${m.servicos}</td>
 						<td><a href="/manutencao/${m.id}/excluir">excluir</a>
 					</tr>
 				</c:forEach>				

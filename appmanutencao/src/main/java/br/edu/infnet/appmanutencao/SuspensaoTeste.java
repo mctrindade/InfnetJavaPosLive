@@ -1,5 +1,10 @@
 package br.edu.infnet.appmanutencao;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -13,22 +18,46 @@ public class SuspensaoTeste implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) {
-		System.out.println("#Suspensao");
+		
+		String dir = "d:/Temp/";
+		String arq = "suspensao.txt";
 		
 		try {
-			Suspensao s1 = new Suspensao();
-			s1.setDescricao("Servico 1");
-			s1.setSituacao(1);
-			s1.setValor(101);
-			s1.setAmortecedor("dianteiro");
-			s1.setMola("helicoidais");
-			s1.setPneu(15);
-			System.out.println("Calculo de venda: " + s1.calcularVenda());
-			SuspensaoController.incluir(s1);
-		} catch (TamanhoPneuInvalidoException e) {
-			System.out.println("[ERROR - SUSPENSAO] " + e.getMessage());
+			FileReader fileReader= new FileReader(dir+arq);
+			BufferedReader leitura = new BufferedReader(fileReader);
+
+			String linha = leitura.readLine();
+			while(linha != null) {
+				try {
+					String[] campos = linha.split(";");
+					Suspensao s1 = new Suspensao();
+					s1.setDescricao(campos[3]);
+					s1.setSituacao(Integer.valueOf(campos[4]));
+					s1.setValor(Float.valueOf(campos[5]));
+					s1.setAmortecedor(campos[1]);
+					s1.setMola(campos[2]);
+					s1.setPneu(Integer.valueOf(campos[0]));
+					System.out.println("Calculo de venda: " + s1.calcularVenda());
+					SuspensaoController.incluir(s1);
+				} catch (TamanhoPneuInvalidoException e) {
+					System.out.println("[ERROR - SUSPENSAO] " + e.getMessage());
+				}
+				linha = leitura.readLine();
+			}
+			
+			leitura.close();
+			fileReader.close();
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("[ERRO] o arquivo não existe");
+		} catch (IOException e) {
+			System.out.println("[ERRO] o arquivo não existe");
+			e.printStackTrace();
+		} finally {
+			System.out.println("Terminou!!");
 		}
 		
+		/*
 		try {
 			Suspensao s2 = new Suspensao();
 			s2.setDescricao("Servico 2");
@@ -69,7 +98,7 @@ public class SuspensaoTeste implements ApplicationRunner {
 			SuspensaoController.incluir(s4);
 		} catch (TamanhoPneuInvalidoException e) {
 			System.out.println("[ERROR - SUSPENSAO] " + e.getMessage());
-		}
+		}*/
 	}
 
 }

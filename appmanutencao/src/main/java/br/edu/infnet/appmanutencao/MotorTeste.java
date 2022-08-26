@@ -1,5 +1,10 @@
 package br.edu.infnet.appmanutencao;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -13,22 +18,46 @@ public class MotorTeste implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) {
-		System.out.println("#Motor");
+
+		String dir = "d:/Temp/";
+		String arq = "motor.txt";
+		
 		try {
-			Motor m1 = new Motor();
-			m1.setDescricao("Servico 1");
-			m1.setSituacao(1);
-			m1.setValor(101);
-			m1.setCilindro("em linha");
-			m1.setTamanho(1.4d);
-			m1.setCombustivel("gasolina");
-			System.out.println("Calculo de venda: " + m1.calcularVenda());
-			MotorController.incluir(m1);
-		} catch (TamanhoMotorFracoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			FileReader fileReader= new FileReader(dir+arq);
+			BufferedReader leitura = new BufferedReader(fileReader);
+
+			String linha = leitura.readLine();
+			while(linha != null) {
+				try {
+					String[] campos = linha.split(";");
+					Motor m1 = new Motor();
+					m1.setDescricao(campos[3]);
+					m1.setSituacao(Integer.valueOf(campos[4]));
+					m1.setValor(Float.valueOf(campos[5]));
+					m1.setCilindro(campos[0]);
+					m1.setTamanho(Double.valueOf(campos[1]));
+					m1.setCombustivel(campos[2]);
+					System.out.println("Calculo de venda: " + m1.calcularVenda());
+					MotorController.incluir(m1);
+				} catch (TamanhoMotorFracoException e) {
+					System.out.println("[ERROR - MOTOR] " + e.getMessage());
+				}
+				linha = leitura.readLine();
+			}
+			
+			leitura.close();
+			fileReader.close();
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("[ERRO] o arquivo não existe");
+		} catch (IOException e) {
+			System.out.println("[ERRO] o arquivo não existe");
+		} finally {
+			System.out.println("Terminou!!");
 		}
-		try {
+		
+		
+		/*try {
 			Motor m2 = new Motor();
 			m2.setDescricao("Servico 2");
 			m2.setSituacao(2);
@@ -68,7 +97,7 @@ public class MotorTeste implements ApplicationRunner {
 			MotorController.incluir(m4);
 		} catch (TamanhoMotorFracoException e) {
 			System.out.println("[ERROR - MOTOR] " + e.getMessage());
-		}
+		}*/
 	}
 
 }

@@ -1,5 +1,9 @@
 package br.edu.infnet.appmanutencao;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,8 +27,6 @@ public class ManutencaoTeste implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) {
-		System.out.println("#Manutencao");
-		
 		Lanternagem la = new Lanternagem();
 		la.setDescricao("Servico 1");
 		la.setSituacao(1);
@@ -57,24 +59,47 @@ public class ManutencaoTeste implements ApplicationRunner {
 		su.setMola("helicoidais");
 		su.setPneu(15);
 		
-		try {
-			Set<Servico> listaServicoM1 = new HashSet<>();
-			listaServicoM1.add(la2);
-			listaServicoM1.add(la);
-			listaServicoM1.add(mo);
-			listaServicoM1.add(la2);
-			listaServicoM1.add(su);
-			
-			Cliente c1 = new Cliente("Cliente1","12345678910","32170000");
-			Manutencao m1 = new Manutencao(c1, listaServicoM1);
-			m1.setBox(1);
-			m1.setPlaca("JKO-0001");
-			ManutencaoController.incluir(m1);
-		} catch (CpfInvalidoException | ClienteNuloException | ManutencaoSemServicosException e) {
-			System.out.println("[ERRO] - CLIENTE " + e.getMessage());
-		}
+		
+		String dir = "d:/Temp/";
+		String arq = "manutecao.txt";
 		
 		try {
+			FileReader fileReader= new FileReader(dir+arq);
+			BufferedReader leitura = new BufferedReader(fileReader);
+
+			String linha = leitura.readLine();
+			while(linha != null) {
+				try {
+					String[] campos = linha.split(";");
+					Set<Servico> listaServicoM1 = new HashSet<>();
+					listaServicoM1.add(la2);
+					listaServicoM1.add(la);
+					listaServicoM1.add(mo);
+					listaServicoM1.add(su);
+					
+					Cliente c1 = new Cliente(campos[3],campos[4],campos[5]);
+					Manutencao m1 = new Manutencao(c1, listaServicoM1);
+					m1.setBox(Integer.valueOf(campos[0]));
+					m1.setPlaca(campos[1]);
+					ManutencaoController.incluir(m1);
+				} catch (CpfInvalidoException | ClienteNuloException | ManutencaoSemServicosException e) {
+					System.out.println("[ERRO] - CLIENTE " + e.getMessage());
+				}
+				linha = leitura.readLine();
+			}
+			
+			leitura.close();
+			fileReader.close();
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("[ERRO] o arquivo não existe");
+		} catch (IOException e) {
+			System.out.println("[ERRO] o arquivo não existe");
+		} finally {
+			System.out.println("Terminou!!");
+		}
+		
+		/*try {
 			Set<Servico> listaServicoM2 = new HashSet<>();
 			listaServicoM2.add(su);
 			
@@ -108,7 +133,7 @@ public class ManutencaoTeste implements ApplicationRunner {
 			listaServicoM4.add(mo);
 			listaServicoM4.add(su);
 
-			Cliente c4 = new Cliente("Cliente4", "12345678912", "32170002");
+			Cliente c4 = new Cliente("Cliente4", "12345678913", "32170002");
 			Manutencao m4 = new Manutencao(c4, listaServicoM4);
 			m4.setBox(4);
 			m4.setPlaca("JKO-0004");
@@ -120,14 +145,14 @@ public class ManutencaoTeste implements ApplicationRunner {
 		try {
 			Set<Servico> listaServicoM5 = null;
 
-			Cliente c5 = new Cliente("Cliente4", "12345678912", "32170002");
+			Cliente c5 = new Cliente("Cliente5", "12345678914", "32170002");
 			Manutencao m5 = new Manutencao(c5, listaServicoM5);
-			m5.setBox(4);
-			m5.setPlaca("JKO-0004");
+			m5.setBox(5);
+			m5.setPlaca("JKO-0005");
 			ManutencaoController.incluir(m5);
 		} catch (CpfInvalidoException | ClienteNuloException | ManutencaoSemServicosException e) {
 			System.out.println("[ERRO] - CLIENTE " + e.getMessage());
-		}
+		}*/
 	}
 
 }

@@ -66,6 +66,22 @@ public class Manutencao implements IPrinter {
 	public void setData(LocalDate data) {
 		this.data = data;
 	}
+	
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Set<Servico> getServicos() {
+		return servicos;
+	}
+
+	public void setServicos(Set<Servico> servicos) {
+		this.servicos = servicos;
+	}
 
 	@Override
 	public String toString() {
