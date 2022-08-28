@@ -7,7 +7,7 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <meta charset="ISO-8859-1">
-<title>AppServico</title>
+<title>AppManutencao</title>
 </head>
 <body>
 	<nav class="navbar navbar-expand-sm bg-light navbar-light">
@@ -25,8 +25,8 @@
 	</nav>
 
 	<div class="container mt-3">
-		<h2>AppServico</h2>
-		<p>Projeto de controle de serviços oficina</p>
+		<h2>AppManutencao</h2>
+		<p>Projeto de controle de manutenção de veículos</p>
 		<h3>Classe: Serviço</h3>
 		<table class="table table-striped">
 			<thead>
