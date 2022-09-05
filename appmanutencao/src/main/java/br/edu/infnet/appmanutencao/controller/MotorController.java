@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import br.edu.infnet.appmanutencao.model.domain.Motor;
 import br.edu.infnet.appmanutencao.model.test.AppImpressao;
@@ -40,6 +41,17 @@ public class MotorController {
 		model.addAttribute("listagem", obterLista());
 		
 		return "motor/lista";
+	}
+	
+	@GetMapping(value = "/motor")
+	public String telaCadastro(Model model) {
+		return "motor/cadastro";
+	}
+	
+	@PostMapping(value = "/motor/incluir")
+	public String incluisao(Motor motor) {
+		incluir(motor);
+		return "redirect:/";
 	}
 	
 	@GetMapping(value = "/motor/{id}/excluir")

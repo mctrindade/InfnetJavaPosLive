@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import br.edu.infnet.appmanutencao.model.domain.Cliente;
 import br.edu.infnet.appmanutencao.model.test.AppImpressao;
@@ -41,6 +42,17 @@ public class ClienteController {
 		model.addAttribute("listagem", obterLista());
 		
 		return "cliente/lista";
+	}
+	
+	@GetMapping(value = "/cliente")
+	public String telaCadastro(Model model) {
+		return "cliente/cadastro";
+	}
+	
+	@PostMapping(value = "/cliente/incluir")
+	public String incluisao(Cliente cliente) {
+		incluir(cliente);
+		return "redirect:/";
 	}
 	
 	@GetMapping(value = "/cliente/{id}/excluir")

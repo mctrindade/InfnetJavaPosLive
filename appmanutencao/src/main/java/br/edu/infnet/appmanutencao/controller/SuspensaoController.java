@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import br.edu.infnet.appmanutencao.model.domain.Suspensao;
 import br.edu.infnet.appmanutencao.model.test.AppImpressao;
@@ -42,11 +43,20 @@ public class SuspensaoController {
 		return "suspensao/lista";
 	}
 	
+	@GetMapping(value = "/suspensao")
+	public String telaCadastro(Model model) {
+		return "suspensao/cadastro";
+	}
+	
+	@PostMapping(value = "/suspensao/incluir")
+	public String incluisao(Suspensao suspensao) {
+		incluir(suspensao);
+		return "redirect:/";
+	}
+	
 	@GetMapping(value = "/suspensao/{id}/excluir")
 	public String exclusao(@PathVariable Integer id) {
-		
 		excluir(id);
-		
 		return "redirect:/suspensao/lista";
 	}
 }

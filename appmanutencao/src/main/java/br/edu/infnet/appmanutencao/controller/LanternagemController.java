@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import br.edu.infnet.appmanutencao.model.domain.Lanternagem;
 import br.edu.infnet.appmanutencao.model.test.AppImpressao;
@@ -40,6 +41,17 @@ public class LanternagemController {
 		model.addAttribute("listagem", obterLista());
 		
 		return "lanternagem/lista";
+	}
+	
+	@GetMapping(value = "/lanternagem")
+	public String telaCadastro(Model model) {
+		return "lanternagem/cadastro";
+	}
+	
+	@PostMapping(value = "/lanternagem/incluir")
+	public String incluisao(Lanternagem lanternagem) {
+		incluir(lanternagem);
+		return "redirect:/";
 	}
 	
 	@GetMapping(value = "/lanternagem/{id}/excluir")

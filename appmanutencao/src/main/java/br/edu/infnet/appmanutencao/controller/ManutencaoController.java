@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import br.edu.infnet.appmanutencao.model.domain.Manutencao;
 import br.edu.infnet.appmanutencao.model.test.AppImpressao;
@@ -40,6 +41,17 @@ public class ManutencaoController {
 		model.addAttribute("listagem", obterLista());
 		
 		return "manutencao/lista";
+	}
+	
+	@GetMapping(value = "/manutencao")
+	public String telaCadastro(Model model) {
+		return "manutencao/cadastro";
+	}
+	
+	@PostMapping(value = "/manutencao/incluir")
+	public String incluisao(Manutencao manutencao) {
+		incluir(manutencao);
+		return "redirect:/";
 	}
 	
 	@GetMapping(value = "/manutencao/{id}/excluir")

@@ -11,19 +11,7 @@
 <title>AppManutencao</title>
 </head>
 <body>
-	<nav class="navbar navbar-expand-sm bg-light navbar-light">
-		<div class="container-fluid">
-			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
-				<li class="nav-item"><a class="nav-link" href="/suspensao/lista">Suspensão</a></li>
-				<li class="nav-item"><a class="nav-link" href="/motor/lista">Motor</a></li>
-				<li class="nav-item"><a class="nav-link" href="/lanternagem/lista">Lanternagem</a></li>
-				<li class="nav-item"><a class="nav-link" href="/cliente/lista">Cliente</a></li>
-				<li class="nav-item"><a class="nav-link" href="/manutencao/lista">Manutenção</a></li>
-				<li class="nav-item"><a class="nav-link" href="/servico/lista">Servico</a></li>
-			</ul>
-		</div>
-	</nav>
+	<c:import url="/WEB-INF/jsp/menu.jsp"/>
 
 	<div class="container mt-3">
 		<h2>AppManutencao</h2>
@@ -44,7 +32,7 @@
 						<td>${u.nome}</td>
 						<td>${u.email}</td>
 						<td>${u.senha}</td>
-						<td><a href="/suspensao/${s.id}/excluir">excluir</a>
+						<td><a href="/usuario/${u.email}/excluir">excluir</a>
 					</tr>
 				</c:forEach>
 			</tbody>
