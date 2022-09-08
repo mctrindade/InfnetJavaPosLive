@@ -1,9 +1,6 @@
 package br.edu.infnet.appmanutencao.controller;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,34 +8,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import br.edu.infnet.appmanutencao.model.domain.Manutencao;
-import br.edu.infnet.appmanutencao.model.test.AppImpressao;
+import br.edu.infnet.appmanutencao.service.ManutencaoService;
 
 @Controller
 public class ManutencaoController {
 	
-	private static Map<Integer, Manutencao> mapManutencao = new HashMap<>();
-	private static Integer id = 1;
-	
-	public static void incluir(Manutencao manutencao) {
-		manutencao.setId(id++);
-		
-		mapManutencao.put(manutencao.getId(), manutencao);
-		
-		AppImpressao.relatorio("Inclusao manutencao "+ manutencao.getPlaca()+ " realizada com sucesso!!", manutencao);
-	}
-	
-	public static void excluir(Integer id) {
-		mapManutencao.remove(id);
-	}
-	
-	public static Collection<Manutencao> obterLista(){
-		return mapManutencao.values();
-	}
+	@Autowired
+	private ManutencaoService manutencaoService;
 	
 	@GetMapping(value = "/manutencao/lista")
 	public String telaHome(Model model) {
 		
-		model.addAttribute("listagem", obterLista());
+		model.addAttribute("listagem", manutencaoService.obterLista());
 		
 		return "manutencao/lista";
 	}
@@ -49,15 +30,15 @@ public class ManutencaoController {
 	}
 	
 	@PostMapping(value = "/manutencao/incluir")
-	public String incluisao(Manutencao manutencao) {
-		incluir(manutencao);
+	public String incluir(Manutencao manutencao) {
+		manutencaoService.incluir(manutencao);
 		return "redirect:/";
 	}
 	
 	@GetMapping(value = "/manutencao/{id}/excluir")
-	public String exclusao(@PathVariable Integer id) {
+	public String excluir(@PathVariable Integer id) {
 		
-		excluir(id);
+		manutencaoService.excluir(id);
 		
 		return "redirect:/manutencao/lista";
 	}	

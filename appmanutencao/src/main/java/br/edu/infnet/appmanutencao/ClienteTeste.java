@@ -5,16 +5,20 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import br.edu.infnet.appmanutencao.controller.ClienteController;
 import br.edu.infnet.appmanutencao.model.domain.Cliente;
+import br.edu.infnet.appmanutencao.service.ClienteService;
 
 @Component
 public class ClienteTeste implements ApplicationRunner {
-
+	
+	@Autowired
+	private ClienteService clienteService;
+	
 	@Override
 	public void run(ApplicationArguments args) {
 		String dir = "d:/Temp/";
@@ -29,7 +33,7 @@ public class ClienteTeste implements ApplicationRunner {
 				try {
 					String[] campos = linha.split(";");
 					Cliente m1 = new Cliente(campos[0],campos[1],campos[2]);
-					ClienteController.incluir(m1);
+					clienteService.incluir(m1);
 				} catch (Exception e) {
 					System.out.println("[ERRO - CLIENTE] " + e.getMessage());
 				}

@@ -1,9 +1,6 @@
 package br.edu.infnet.appmanutencao.controller;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,34 +8,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import br.edu.infnet.appmanutencao.model.domain.Lanternagem;
-import br.edu.infnet.appmanutencao.model.test.AppImpressao;
+import br.edu.infnet.appmanutencao.service.LanternagemService;
 
 @Controller
 public class LanternagemController {
 	
-	private static Map<Integer, Lanternagem> mapLanternagem = new HashMap<>();
-	private static Integer id = 1;
-	
-	public static void incluir(Lanternagem lanternagem) {
-		lanternagem.setId(id++);
-		
-		mapLanternagem.put(lanternagem.getId(), lanternagem);
-		
-		AppImpressao.relatorio("Inclusao lanternagem "+ lanternagem.getDescricao()+ " realizada com sucesso!!", lanternagem);
-	}
-	
-	public static void excluir(Integer id) {
-		mapLanternagem.remove(id);
-	}
-	
-	public static Collection<Lanternagem> obterLista(){
-		return mapLanternagem.values();
-	}
+	@Autowired
+	private LanternagemService lanternagemService;
 	
 	@GetMapping(value = "/lanternagem/lista")
 	public String telaHome(Model model) {
 		
-		model.addAttribute("listagem", obterLista());
+		model.addAttribute("listagem", lanternagemService.obterLista());
 		
 		return "lanternagem/lista";
 	}
@@ -49,15 +30,15 @@ public class LanternagemController {
 	}
 	
 	@PostMapping(value = "/lanternagem/incluir")
-	public String incluisao(Lanternagem lanternagem) {
-		incluir(lanternagem);
+	public String incluir(Lanternagem lanternagem) {
+		lanternagemService.incluir(lanternagem);
 		return "redirect:/";
 	}
 	
 	@GetMapping(value = "/lanternagem/{id}/excluir")
-	public String exclusao(@PathVariable Integer id) {
+	public String excluir(@PathVariable Integer id) {
 		
-		excluir(id);
+		lanternagemService.excluir(id);
 		
 		return "redirect:/lanternagem/lista";
 	}

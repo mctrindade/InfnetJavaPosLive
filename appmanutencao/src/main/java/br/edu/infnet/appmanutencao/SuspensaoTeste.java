@@ -5,17 +5,21 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import br.edu.infnet.appmanutencao.controller.SuspensaoController;
 import br.edu.infnet.appmanutencao.model.domain.Suspensao;
 import br.edu.infnet.appmanutencao.model.domain.exceptions.TamanhoPneuInvalidoException;
+import br.edu.infnet.appmanutencao.service.SuspensaoService;
 
 @Component
 public class SuspensaoTeste implements ApplicationRunner {
-
+	
+	@Autowired
+	private SuspensaoService suspensaoService;
+	
 	@Override
 	public void run(ApplicationArguments args) {
 		
@@ -38,7 +42,7 @@ public class SuspensaoTeste implements ApplicationRunner {
 					s1.setMola(campos[2]);
 					s1.setPneu(Integer.valueOf(campos[0]));
 					System.out.println("Calculo de venda: " + s1.calcularVenda());
-					SuspensaoController.incluir(s1);
+					suspensaoService.incluir(s1);
 				} catch (TamanhoPneuInvalidoException e) {
 					System.out.println("[ERROR - SUSPENSAO] " + e.getMessage());
 				}

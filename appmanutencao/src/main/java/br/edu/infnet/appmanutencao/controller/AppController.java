@@ -1,16 +1,27 @@
 package br.edu.infnet.appmanutencao.controller;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import br.edu.infnet.appmanutencao.model.domain.Usuario;
+import br.edu.infnet.appmanutencao.service.UsuarioService;
 
+
+@SessionAttributes("user")
 @Controller
 public class AppController {
 	
+	@Autowired
+	private UsuarioService usuarioService;
+			
 	@GetMapping(value = "/")
 	public String telaHome() {
 		return "home";
@@ -26,7 +37,7 @@ public class AppController {
 		System.out.println("[email "+email+"]");
 		System.out.println("[senha "+senha+"]");
 		
-		Usuario usuario = UsuarioController.validar(email, senha);
+		Usuario usuario = usuarioService.validar(email, senha);
 		if(usuario != null) {
 			model.addAttribute("user", usuario.getNome());
 			return "home";
@@ -36,8 +47,10 @@ public class AppController {
 	
 	
 	@GetMapping(value = "/logout")
-	public String logout(Model model) {
-		model.addAttribute("user", "");
+	public String logout(HttpSession session, SessionStatus status) {
+		status.setComplete();
+		
+		session.removeAttribute("user");
 		
 		return "redirect:/";
 	}

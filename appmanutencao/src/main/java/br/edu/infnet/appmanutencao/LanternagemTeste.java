@@ -5,17 +5,21 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import br.edu.infnet.appmanutencao.controller.LanternagemController;
 import br.edu.infnet.appmanutencao.model.domain.Lanternagem;
 import br.edu.infnet.appmanutencao.model.domain.exceptions.ValorReparoZeradoException;
+import br.edu.infnet.appmanutencao.service.LanternagemService;
 
 @Component
 public class LanternagemTeste implements ApplicationRunner {
 
+	@Autowired
+	private LanternagemService lanternagemService;
+	
 	@Override
 	public void run(ApplicationArguments args) {
 		
@@ -38,7 +42,7 @@ public class LanternagemTeste implements ApplicationRunner {
 					l1.setLocal(campos[1]);
 					l1.setValorReparo(Float.valueOf(campos[2]));
 					System.out.println("Calculo de venda: " + l1.calcularVenda());
-					LanternagemController.incluir(l1);
+					lanternagemService.incluir(l1);
 				} catch (ValorReparoZeradoException e) {
 					System.out.println("[ERROR - LANTERNAGEM] " + e.getMessage());
 				}

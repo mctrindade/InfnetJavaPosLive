@@ -5,17 +5,21 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import br.edu.infnet.appmanutencao.controller.MotorController;
 import br.edu.infnet.appmanutencao.model.domain.Motor;
 import br.edu.infnet.appmanutencao.model.domain.exceptions.TamanhoMotorFracoException;
+import br.edu.infnet.appmanutencao.service.MotorService;
 
 @Component
 public class MotorTeste implements ApplicationRunner {
-
+	
+	@Autowired
+	private MotorService motorService;
+	
 	@Override
 	public void run(ApplicationArguments args) {
 
@@ -38,7 +42,7 @@ public class MotorTeste implements ApplicationRunner {
 					m1.setTamanho(Double.valueOf(campos[1]));
 					m1.setCombustivel(campos[2]);
 					System.out.println("Calculo de venda: " + m1.calcularVenda());
-					MotorController.incluir(m1);
+					motorService.incluir(m1);
 				} catch (TamanhoMotorFracoException e) {
 					System.out.println("[ERROR - MOTOR] " + e.getMessage());
 				}

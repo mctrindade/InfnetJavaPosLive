@@ -7,11 +7,11 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import br.edu.infnet.appmanutencao.controller.ManutencaoController;
 import br.edu.infnet.appmanutencao.model.domain.Cliente;
 import br.edu.infnet.appmanutencao.model.domain.Lanternagem;
 import br.edu.infnet.appmanutencao.model.domain.Manutencao;
@@ -21,10 +21,14 @@ import br.edu.infnet.appmanutencao.model.domain.Suspensao;
 import br.edu.infnet.appmanutencao.model.domain.exceptions.ClienteNuloException;
 import br.edu.infnet.appmanutencao.model.domain.exceptions.CpfInvalidoException;
 import br.edu.infnet.appmanutencao.model.domain.exceptions.ManutencaoSemServicosException;
+import br.edu.infnet.appmanutencao.service.ManutencaoService;
 
 @Component
 public class ManutencaoTeste implements ApplicationRunner {
 
+	@Autowired
+	private ManutencaoService manutencaoService;
+	
 	@Override
 	public void run(ApplicationArguments args) {
 		Lanternagem la = new Lanternagem();
@@ -81,7 +85,7 @@ public class ManutencaoTeste implements ApplicationRunner {
 					Manutencao m1 = new Manutencao(c1, listaServicoM1);
 					m1.setBox(Integer.valueOf(campos[0]));
 					m1.setPlaca(campos[1]);
-					ManutencaoController.incluir(m1);
+					manutencaoService.incluir(m1);
 				} catch (CpfInvalidoException | ClienteNuloException | ManutencaoSemServicosException e) {
 					System.out.println("[ERRO] - CLIENTE " + e.getMessage());
 				}
