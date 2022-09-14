@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import br.edu.infnet.appmanutencao.model.domain.Usuario;
+import br.edu.infnet.appmanutencao.service.AppService;
 import br.edu.infnet.appmanutencao.service.UsuarioService;
 
 
@@ -21,9 +22,15 @@ public class AppController {
 	
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private AppService appService;
 			
-	@GetMapping(value = "/")
-	public String telaHome() {
+		@GetMapping(value = "/")
+	public String telaHome(Model model) {
+		
+		model.addAttribute("projeto", appService.obterProjeto());
+		
 		return "home";
 	}
 	
