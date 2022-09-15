@@ -16,6 +16,9 @@
 		<h2>AppManutencao</h2>
 		<p>Projeto de controle de manutenção de veículos</p>
 		<h3>Classe: Cliente</h3>
+		
+		<h4><a href="/cliente">Novo</a></h4>
+		
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -32,7 +35,7 @@
 						<td>${c.nome}</td>
 						<td>${c.cpf}</td>
 						<td>${c.telefone}</td>
-						<td><a href="/cliente/${c.id}/excluir">excluir</a>
+						<td><a href="/cliente/${c.id}/excluir">excluir</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

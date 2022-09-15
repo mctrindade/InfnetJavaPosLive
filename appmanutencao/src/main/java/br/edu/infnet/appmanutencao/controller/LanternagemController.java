@@ -17,7 +17,7 @@ public class LanternagemController {
 	private LanternagemService lanternagemService;
 	
 	@GetMapping(value = "/lanternagem/lista")
-	public String telaHome(Model model) {
+	public String telaLista(Model model) {
 		
 		model.addAttribute("listagem", lanternagemService.obterLista());
 		

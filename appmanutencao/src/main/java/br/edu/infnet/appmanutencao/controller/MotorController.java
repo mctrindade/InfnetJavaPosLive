@@ -17,7 +17,7 @@ public class MotorController {
 	private MotorService motorService;
 	
 	@GetMapping(value = "/motor/lista")
-	public String telaHome(Model model) {
+	public String telaLista(Model model) {
 		
 		model.addAttribute("listagem", motorService.obterLista());
 		

@@ -17,7 +17,7 @@ public class SuspensaoController {
 	private SuspensaoService suspensaoService;
 	
 	@GetMapping(value = "/suspensao/lista")
-	public String telaHome(Model model) {
+	public String telaLista(Model model) {
 		
 		model.addAttribute("listagem", suspensaoService.obterLista());
 		

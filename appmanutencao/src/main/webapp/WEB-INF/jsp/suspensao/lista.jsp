@@ -17,6 +17,9 @@
 		<h2>AppManutencao</h2>
 		<p>Projeto de controle de manutenção de veículos</p>
 		<h3>Classe: Suspensao</h3>
+		
+		<h4><a href="/suspensao">Novo</a></h4>
+		
 		<table class="table table-striped">
 			<thead>
 				<tr>
