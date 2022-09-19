@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,17 +30,17 @@ public class ManutencaoTeste implements ApplicationRunner {
 
 	@Autowired
 	private ManutencaoService manutencaoService;
-	
+
 	@Override
 	public void run(ApplicationArguments args) {
-		Lanternagem la = new Lanternagem();
+		/*Lanternagem la = new Lanternagem();
 		la.setDescricao("Servico 1");
 		la.setSituacao(1);
 		la.setValor(101);
 		la.setCor("azul");
 		la.setLocal("porta do motorista");
 		la.setValorReparo(23);
-		
+
 		Lanternagem la2 = new Lanternagem();
 		la2.setDescricao("Servico 1");
 		la2.setSituacao(2);
@@ -46,7 +48,7 @@ public class ManutencaoTeste implements ApplicationRunner {
 		la2.setCor("azul");
 		la2.setLocal("porta do motorista");
 		la2.setValorReparo(23);
-		
+
 		Motor mo = new Motor();
 		mo.setDescricao("Servico 1");
 		mo.setSituacao(1);
@@ -54,7 +56,7 @@ public class ManutencaoTeste implements ApplicationRunner {
 		mo.setCilindro("em linha");
 		mo.setTamanho(1.4d);
 		mo.setCombustivel("gasolina");
-		
+
 		Suspensao su = new Suspensao();
 		su.setDescricao("Servico 1");
 		su.setSituacao(1);
@@ -62,39 +64,80 @@ public class ManutencaoTeste implements ApplicationRunner {
 		su.setAmortecedor("dianteiro");
 		su.setMola("helicoidais");
 		su.setPneu(15);
-		
-		
+		*/
+
 		String dir = "d:/Temp/";
 		String arq = "manutecao.txt";
-		
-		try {
-			FileReader fileReader= new FileReader(dir+arq);
-			BufferedReader leitura = new BufferedReader(fileReader);
 
+		try {
+			FileReader fileReader = new FileReader(dir + arq);
+			BufferedReader leitura = new BufferedReader(fileReader);
+			Set<Servico> listaServicos = null;
+			List<Manutencao> manutencoes = new ArrayList<>();
+			
 			String linha = leitura.readLine();
-			while(linha != null) {
-				try {
-					String[] campos = linha.split(";");
-					Set<Servico> listaServicoM1 = new HashSet<>();
-					listaServicoM1.add(la2);
-					listaServicoM1.add(la);
-					listaServicoM1.add(mo);
-					listaServicoM1.add(su);
-					
-					Cliente c1 = new Cliente(campos[3],campos[4],campos[5]);
-					Manutencao m1 = new Manutencao(c1, listaServicoM1);
-					m1.setBox(Integer.valueOf(campos[0]));
-					m1.setPlaca(campos[1]);
-					manutencaoService.incluir(m1);
-				} catch (CpfInvalidoException | ClienteNuloException | ManutencaoSemServicosException e) {
-					System.out.println("[ERRO] - CLIENTE " + e.getMessage());
+			while (linha != null) {
+				String[] campos = linha.split(";");
+				switch (campos[0]) {
+				case "M":
+					try {
+						listaServicos = new HashSet<>();
+
+						Cliente c1 = new Cliente(campos[4], campos[5], campos[6]);
+						Manutencao m1 = new Manutencao(c1, listaServicos);
+						m1.setBox(Integer.valueOf(campos[1]));
+						m1.setPlaca(campos[2]);
+						manutencoes.add(m1);
+					} catch (CpfInvalidoException | ClienteNuloException | ManutencaoSemServicosException e) {
+						System.out.println("[ERRO] - CLIENTE " + e.getMessage());
+					}
+					break;
+				case "S":
+					Suspensao su = new Suspensao();
+					su.setPneu(Integer.valueOf(campos[1]));
+					su.setAmortecedor(campos[2]);
+					su.setMola(campos[3]);
+					su.setDescricao(campos[4]);
+					su.setSituacao(Integer.valueOf(campos[5]));
+					su.setValor(Float.valueOf(campos[6]));
+					listaServicos.add(su);
+					break;
+				case "L":
+					Lanternagem la = new Lanternagem();
+					la.setCor(campos[1]);
+					la.setLocal(campos[2]);
+					la.setValorReparo(Float.valueOf(campos[3]));
+					la.setDescricao(campos[4]);
+					la.setSituacao(Integer.valueOf(campos[5]));
+					la.setValor(Float.valueOf(campos[6]));
+					listaServicos.add(la);
+					break;
+				case "MO":
+					Motor mo = new Motor();
+					mo.setCilindro(campos[1]);
+					mo.setTamanho(Double.valueOf(campos[2]));
+					mo.setCombustivel(campos[3]);
+					mo.setDescricao(campos[4]);
+					mo.setSituacao(Integer.valueOf(campos[5]));
+					mo.setValor(Float.valueOf(campos[6]));
+					listaServicos.add(mo);
+					break;
+				default:
+					break;
 				}
 				linha = leitura.readLine();
+			}
+
+			for(Manutencao m: manutencoes) {
+				manutencaoService.incluir(m);
+				System.out.println(">>>>>>>>>>>> "+ m.getId());
+				System.out.println(">>>>>>>>>> "+ m.getCliente().getNome());
+				System.out.println(">>>>>>>> "+ m.getServicos().size());
 			}
 			
 			leitura.close();
 			fileReader.close();
-			
+
 		} catch (FileNotFoundException e) {
 			System.out.println("[ERRO] o arquivo não existe");
 		} catch (IOException e) {
@@ -102,61 +145,6 @@ public class ManutencaoTeste implements ApplicationRunner {
 		} finally {
 			System.out.println("Terminou!!");
 		}
-		
-		/*try {
-			Set<Servico> listaServicoM2 = new HashSet<>();
-			listaServicoM2.add(su);
-			
-			Cliente c2 = new Cliente("Cliente2", "12345678911", "32170001");
-			Manutencao m2 = new Manutencao(c2, listaServicoM2);
-			m2.setBox(2);
-			m2.setPlaca("JKO-0002");
-			ManutencaoController.incluir(m2);
-		} catch (CpfInvalidoException | ClienteNuloException | ManutencaoSemServicosException e) {
-			System.out.println("[ERRO] - CLIENTE " + e.getMessage());
-		}
-		
-		try {
-			Set<Servico> listaServicoM3 = new HashSet<>();
-			listaServicoM3.add(la);
-			listaServicoM3.add(mo);
-			listaServicoM3.add(su);
-
-			Cliente c3 = new Cliente("Cliente3", "12345678912", "32170002");
-			Manutencao m3 = new Manutencao(null, listaServicoM3);
-			m3.setBox(3);
-			m3.setPlaca("JKO-0003");
-			ManutencaoController.incluir(m3);
-		} catch (CpfInvalidoException | ClienteNuloException | ManutencaoSemServicosException e) {
-			System.out.println("[ERRO] - CLIENTE " + e.getMessage());
-		}
-		
-		try {
-			Set<Servico> listaServicoM4 = new HashSet<>();
-			listaServicoM4.add(la);
-			listaServicoM4.add(mo);
-			listaServicoM4.add(su);
-
-			Cliente c4 = new Cliente("Cliente4", "12345678913", "32170002");
-			Manutencao m4 = new Manutencao(c4, listaServicoM4);
-			m4.setBox(4);
-			m4.setPlaca("JKO-0004");
-			ManutencaoController.incluir(m4);
-		} catch (CpfInvalidoException | ClienteNuloException | ManutencaoSemServicosException e) {
-			System.out.println("[ERRO] - CLIENTE " + e.getMessage());
-		}
-		
-		try {
-			Set<Servico> listaServicoM5 = null;
-
-			Cliente c5 = new Cliente("Cliente5", "12345678914", "32170002");
-			Manutencao m5 = new Manutencao(c5, listaServicoM5);
-			m5.setBox(5);
-			m5.setPlaca("JKO-0005");
-			ManutencaoController.incluir(m5);
-		} catch (CpfInvalidoException | ClienteNuloException | ManutencaoSemServicosException e) {
-			System.out.println("[ERRO] - CLIENTE " + e.getMessage());
-		}*/
 	}
 
 }

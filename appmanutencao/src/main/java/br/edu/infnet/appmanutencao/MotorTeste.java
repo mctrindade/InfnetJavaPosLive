@@ -24,7 +24,8 @@ public class MotorTeste implements ApplicationRunner {
 	public void run(ApplicationArguments args) {
 
 		String dir = "d:/Temp/";
-		String arq = "motor.txt";
+		String arq = "servico.txt";
+		//String arq = "motor.txt";
 		
 		try {
 			FileReader fileReader= new FileReader(dir+arq);
@@ -32,19 +33,21 @@ public class MotorTeste implements ApplicationRunner {
 
 			String linha = leitura.readLine();
 			while(linha != null) {
-				try {
-					String[] campos = linha.split(";");
-					Motor m1 = new Motor();
-					m1.setDescricao(campos[3]);
-					m1.setSituacao(Integer.valueOf(campos[4]));
-					m1.setValor(Float.valueOf(campos[5]));
-					m1.setCilindro(campos[0]);
-					m1.setTamanho(Double.valueOf(campos[1]));
-					m1.setCombustivel(campos[2]);
-					System.out.println("Calculo de venda: " + m1.calcularVenda());
-					motorService.incluir(m1);
-				} catch (TamanhoMotorFracoException e) {
-					System.out.println("[ERROR - MOTOR] " + e.getMessage());
+				String[] campos = linha.split(";");
+				if("MO".equalsIgnoreCase(campos[0])) {
+					try {
+						Motor m1 = new Motor();
+						m1.setCilindro(campos[1]);
+						m1.setTamanho(Double.valueOf(campos[2]));
+						m1.setCombustivel(campos[3]);
+						m1.setDescricao(campos[4]);
+						m1.setSituacao(Integer.valueOf(campos[5]));
+						m1.setValor(Float.valueOf(campos[6]));
+						System.out.println("Calculo de venda: " + m1.calcularVenda());
+						motorService.incluir(m1);
+					} catch (TamanhoMotorFracoException e) {
+						System.out.println("[ERROR - MOTOR] " + e.getMessage());
+					}
 				}
 				linha = leitura.readLine();
 			}

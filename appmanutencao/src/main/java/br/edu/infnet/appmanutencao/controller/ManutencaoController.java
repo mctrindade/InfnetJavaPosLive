@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import br.edu.infnet.appmanutencao.model.domain.Manutencao;
+import br.edu.infnet.appmanutencao.service.ClienteService;
 import br.edu.infnet.appmanutencao.service.ManutencaoService;
+import br.edu.infnet.appmanutencao.service.ServicoService;
 
 @Controller
 public class ManutencaoController {
@@ -16,8 +18,14 @@ public class ManutencaoController {
 	@Autowired
 	private ManutencaoService manutencaoService;
 	
+	@Autowired
+	private ClienteService clienteService;
+	
+	@Autowired
+	private ServicoService servicoService;
+	
 	@GetMapping(value = "/manutencao/lista")
-	public String telaHome(Model model) {
+	public String telaLista(Model model) {
 		
 		model.addAttribute("listagem", manutencaoService.obterLista());
 		
@@ -26,12 +34,14 @@ public class ManutencaoController {
 	
 	@GetMapping(value = "/manutencao")
 	public String telaCadastro(Model model) {
+		model.addAttribute("clientes", clienteService.obterLista());
+		model.addAttribute("servicos", servicoService.obterLista());
 		return "manutencao/cadastro";
 	}
 	
 	@PostMapping(value = "/manutencao/incluir")
-	public String incluir(Manutencao manutencao) {
-		manutencaoService.incluir(manutencao);
+	public String incluir() {
+		//manutencaoService.incluir(manutencao);
 		return "redirect:/";
 	}
 	

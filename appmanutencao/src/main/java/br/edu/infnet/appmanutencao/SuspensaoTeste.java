@@ -24,7 +24,8 @@ public class SuspensaoTeste implements ApplicationRunner {
 	public void run(ApplicationArguments args) {
 		
 		String dir = "d:/Temp/";
-		String arq = "suspensao.txt";
+		String arq = "servico.txt";
+		//String arq = "suspensao.txt";
 		
 		try {
 			FileReader fileReader= new FileReader(dir+arq);
@@ -32,20 +33,23 @@ public class SuspensaoTeste implements ApplicationRunner {
 
 			String linha = leitura.readLine();
 			while(linha != null) {
-				try {
-					String[] campos = linha.split(";");
-					Suspensao s1 = new Suspensao();
-					s1.setDescricao(campos[3]);
-					s1.setSituacao(Integer.valueOf(campos[4]));
-					s1.setValor(Float.valueOf(campos[5]));
-					s1.setAmortecedor(campos[1]);
-					s1.setMola(campos[2]);
-					s1.setPneu(Integer.valueOf(campos[0]));
-					System.out.println("Calculo de venda: " + s1.calcularVenda());
-					suspensaoService.incluir(s1);
-				} catch (TamanhoPneuInvalidoException e) {
-					System.out.println("[ERROR - SUSPENSAO] " + e.getMessage());
+				String[] campos = linha.split(";");
+				if("S".equalsIgnoreCase(campos[0])) {
+					try {
+						Suspensao s1 = new Suspensao();
+						s1.setPneu(Integer.valueOf(campos[1]));
+						s1.setAmortecedor(campos[2]);
+						s1.setMola(campos[3]);
+						s1.setDescricao(campos[4]);
+						s1.setSituacao(Integer.valueOf(campos[5]));
+						s1.setValor(Float.valueOf(campos[6]));
+						System.out.println("Calculo de venda: " + s1.calcularVenda());
+						suspensaoService.incluir(s1);
+					} catch (TamanhoPneuInvalidoException e) {
+						System.out.println("[ERROR - SUSPENSAO] " + e.getMessage());
+					}
 				}
+					
 				linha = leitura.readLine();
 			}
 			

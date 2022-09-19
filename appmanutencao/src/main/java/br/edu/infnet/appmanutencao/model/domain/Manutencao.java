@@ -21,15 +21,15 @@ public class Manutencao implements IPrinter {
 		if(cliente == null) {
 			throw new ClienteNuloException("Impossivel criar uma Manutenção sem um Cliente!");
 		}
-		
-		if(servicos == null) {
-			throw new ManutencaoSemServicosException("Impossivel criar uma manutenção sem uma listagem de serviços!");
-		}
-		
-		if(servicos.size() < 1) {
-			throw new ManutencaoSemServicosException("Impossivel criar uma manutenção com menos de um serviço!");
-		}
-		
+//		
+//		if(servicos == null) {
+//			throw new ManutencaoSemServicosException("Impossivel criar uma manutenção sem uma listagem de serviços!");
+//		}
+//		
+//		if(servicos.size() < 1) {
+//			throw new ManutencaoSemServicosException("Impossivel criar uma manutenção com menos de um serviço!");
+//		}
+//		
 		this.data = LocalDate.now();
 		this.cliente  = cliente;
 		this.servicos = servicos;

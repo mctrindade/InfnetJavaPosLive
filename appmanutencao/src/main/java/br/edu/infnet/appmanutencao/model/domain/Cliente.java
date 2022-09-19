@@ -1,15 +1,29 @@
 package br.edu.infnet.appmanutencao.model.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import br.edu.infnet.appmanutencao.interfaces.IPrinter;
 import br.edu.infnet.appmanutencao.model.domain.exceptions.CpfInvalidoException;
 
+@Entity
+@Table
 public class Cliente implements IPrinter {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private String cpf;
 	private String telefone;
 	
+	public Cliente() {
+		super();
+	}
+
 	public Cliente(String nome, String cpf, String telefone) throws CpfInvalidoException {
 		this.nome = nome;
 		
