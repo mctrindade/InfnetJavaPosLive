@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.edu.infnet.appmanutencao.interfaces.IPrinter;
@@ -19,6 +21,9 @@ public class Cliente implements IPrinter {
 	private String nome;
 	private String cpf;
 	private String telefone;
+	@ManyToOne
+	@JoinColumn(name="idUsuario")
+	private Usuario usuario;
 	
 	public Cliente() {
 		super();
@@ -70,6 +75,14 @@ public class Cliente implements IPrinter {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@Override

@@ -8,12 +8,15 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import br.edu.infnet.appmanutencao.model.domain.Cliente;
+import br.edu.infnet.appmanutencao.model.domain.Usuario;
 import br.edu.infnet.appmanutencao.service.ClienteService;
 
 @Component
+@Order(2)
 public class ClienteTeste implements ApplicationRunner {
 	
 	@Autowired
@@ -21,6 +24,11 @@ public class ClienteTeste implements ApplicationRunner {
 	
 	@Override
 	public void run(ApplicationArguments args) {
+		
+		Usuario usuario = new Usuario();
+		usuario.setId(1);
+		
+		
 		String dir = "d:/Temp/";
 		String arq = "cliente.txt";
 		
@@ -32,8 +40,9 @@ public class ClienteTeste implements ApplicationRunner {
 			while(linha != null) {
 				try {
 					String[] campos = linha.split(";");
-					Cliente m1 = new Cliente(campos[0],campos[1],campos[2]);
-					clienteService.incluir(m1);
+					Cliente cliente = new Cliente(campos[0],campos[1],campos[2]);
+					cliente.setUsuario(usuario);
+					clienteService.incluir(cliente);
 				} catch (Exception e) {
 					System.out.println("[ERRO - CLIENTE] " + e.getMessage());
 				}

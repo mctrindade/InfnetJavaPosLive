@@ -1,33 +1,31 @@
 package br.edu.infnet.appmanutencao.service;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.infnet.appmanutencao.model.domain.Suspensao;
+import br.edu.infnet.appmanutencao.model.domain.repository.SuspensaoRepository;
 import br.edu.infnet.appmanutencao.model.test.AppImpressao;
 
 @Service
 public class SuspensaoService {
-
-	private static Map<Integer, Suspensao> mapSuspensao = new HashMap<>();
-	private static Integer id = 1;
+	
+	@Autowired
+	private SuspensaoRepository suspensaoRepository;
 	
 	public void incluir(Suspensao suspensao) {
-		suspensao.setId(id++);
-		
-		mapSuspensao.put(suspensao.getId(), suspensao);
+		suspensaoRepository.save(suspensao);
 		
 		AppImpressao.relatorio("Inclusao suspensão "+ suspensao.getDescricao()+ " realizada com sucesso!!", suspensao);
 	}
 	
 	public void excluir(Integer id) {
-		mapSuspensao.remove(id);
+		suspensaoRepository.deleteById(id);
 	}
 	
 	public Collection<Suspensao> obterLista(){
-		return mapSuspensao.values();
+		return (Collection<Suspensao>) suspensaoRepository.findAll();
 	}
 }
