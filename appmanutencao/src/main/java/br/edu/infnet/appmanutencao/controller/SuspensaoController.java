@@ -6,8 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import br.edu.infnet.appmanutencao.model.domain.Suspensao;
+import br.edu.infnet.appmanutencao.model.domain.Usuario;
 import br.edu.infnet.appmanutencao.service.SuspensaoService;
 
 @Controller
@@ -17,9 +19,9 @@ public class SuspensaoController {
 	private SuspensaoService suspensaoService;
 	
 	@GetMapping(value = "/suspensao/lista")
-	public String telaLista(Model model) {
+	public String telaLista(Model model, @SessionAttribute("user") Usuario usuario) {
 		
-		model.addAttribute("listagem", suspensaoService.obterLista());
+		model.addAttribute("listagem", suspensaoService.obterLista(usuario));
 		
 		return "suspensao/lista";
 	}
@@ -30,7 +32,8 @@ public class SuspensaoController {
 	}
 	
 	@PostMapping(value = "/suspensao/incluir")
-	public String incluir(Suspensao suspensao) {
+	public String incluir(Suspensao suspensao, @SessionAttribute("user") Usuario usuario) {
+		suspensao.setUsuario(usuario);
 		suspensaoService.incluir(suspensao);
 		return "redirect:/";
 	}

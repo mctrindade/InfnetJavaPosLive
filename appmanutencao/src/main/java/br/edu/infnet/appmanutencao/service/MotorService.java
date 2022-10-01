@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.infnet.appmanutencao.model.domain.Motor;
+import br.edu.infnet.appmanutencao.model.domain.Usuario;
 import br.edu.infnet.appmanutencao.model.domain.repository.MotorRepository;
 import br.edu.infnet.appmanutencao.model.test.AppImpressao;
 
@@ -27,5 +28,9 @@ public class MotorService {
 	
 	public Collection<Motor> obterLista(){
 		return (Collection<Motor>) motorRepository.findAll();
+	}
+	
+	public Collection<Motor> obterLista(Usuario usuario){
+		return (Collection<Motor>) motorRepository.findAll(usuario.getId());
 	}
 }

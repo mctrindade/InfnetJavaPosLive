@@ -17,30 +17,30 @@
 		<h2>AppManutencao</h2>
 		<p>Projeto de controle de manutenção de veículos</p>
 		<h3>Classe: Serviço</h3>
+		
+		<h4><a href="/servico">Novo</a></h4>
+		
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>valor</th>
-					<th>descrição</th>
+					<th>id</th>
+					<th>descricao</th>
 					<th>situação</th>
+					<th>valor</th>
+					
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>10.00</td>
-					<td>Serviço de Lanternagem - Porta</td>
-					<td>Aguardando</td>
-				</tr>
-				<tr>
-					<td>20.00</td>
-					<td>Serviço de Lanternagem - Capuz</td>
-					<td>Iniciado</td>
-				</tr>
-				<tr>
-					<td>30.00</td>
-					<td>Serviço de Lanternagem - Porta Mala</td>
-					<td>Finalizado</td>
-				</tr>
+				<c:forEach var="s" items="${listagem}">
+					<tr>
+						<td>${s.id}</td>
+						<td>${s.descricao}</td>
+						<td>${s.situacao}</td>
+						<td>${s.valor}</td>
+						<td><a href="/servico/${s.id}/excluir">excluir</a>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>

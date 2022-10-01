@@ -1,5 +1,6 @@
 package br.edu.infnet.appmanutencao.model.domain;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -8,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.edu.infnet.appmanutencao.interfaces.IPrinter;
@@ -26,6 +30,12 @@ public abstract class Servico implements IPrinter{
 	private String descricao;
 	private int situacao;
 	private float valor;
+	@ManyToMany(mappedBy = "servicos")
+	private List<Manutencao> manutencoes;
+	@ManyToOne
+	@JoinColumn(name="idUsuario")
+	private Usuario usuario;
+	
 	
 	public abstract float calcularVenda() throws TamanhoPneuInvalidoException, TamanhoMotorFracoException, ValorReparoZeradoException;
 	
@@ -61,6 +71,22 @@ public abstract class Servico implements IPrinter{
 		this.valor = valor;
 	}
 	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
+	public List<Manutencao> getManutencoes() {
+		return manutencoes;
+	}
+
+	public void setManutencoes(List<Manutencao> manutencoes) {
+		this.manutencoes = manutencoes;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(descricao);

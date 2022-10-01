@@ -8,13 +8,16 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import br.edu.infnet.appmanutencao.model.domain.Motor;
+import br.edu.infnet.appmanutencao.model.domain.Usuario;
 import br.edu.infnet.appmanutencao.model.domain.exceptions.TamanhoMotorFracoException;
 import br.edu.infnet.appmanutencao.service.MotorService;
 
 @Component
+@Order(3)
 public class MotorTeste implements ApplicationRunner {
 	
 	@Autowired
@@ -22,7 +25,9 @@ public class MotorTeste implements ApplicationRunner {
 	
 	@Override
 	public void run(ApplicationArguments args) {
-
+		Usuario usuario = new Usuario();
+		usuario.setId(1);
+		
 		String dir = "d:/Temp/";
 		String arq = "servico.txt";
 		//String arq = "motor.txt";
@@ -36,15 +41,16 @@ public class MotorTeste implements ApplicationRunner {
 				String[] campos = linha.split(";");
 				if("MO".equalsIgnoreCase(campos[0])) {
 					try {
-						Motor m1 = new Motor();
-						m1.setCilindro(campos[1]);
-						m1.setTamanho(Double.valueOf(campos[2]));
-						m1.setCombustivel(campos[3]);
-						m1.setDescricao(campos[4]);
-						m1.setSituacao(Integer.valueOf(campos[5]));
-						m1.setValor(Float.valueOf(campos[6]));
-						System.out.println("Calculo de venda: " + m1.calcularVenda());
-						motorService.incluir(m1);
+						Motor motor = new Motor();
+						motor.setCilindro(campos[1]);
+						motor.setTamanho(Double.valueOf(campos[2]));
+						motor.setCombustivel(campos[3]);
+						motor.setDescricao(campos[4]);
+						motor.setSituacao(Integer.valueOf(campos[5]));
+						motor.setValor(Float.valueOf(campos[6]));
+						motor.setUsuario(usuario);
+						System.out.println("Calculo de venda: " + motor.calcularVenda());
+						motorService.incluir(motor);
 					} catch (TamanhoMotorFracoException e) {
 						System.out.println("[ERROR - MOTOR] " + e.getMessage());
 					}

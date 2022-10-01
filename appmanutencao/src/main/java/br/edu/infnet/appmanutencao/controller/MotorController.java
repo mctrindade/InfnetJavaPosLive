@@ -6,8 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import br.edu.infnet.appmanutencao.model.domain.Motor;
+import br.edu.infnet.appmanutencao.model.domain.Usuario;
 import br.edu.infnet.appmanutencao.service.MotorService;
 
 @Controller
@@ -17,9 +19,9 @@ public class MotorController {
 	private MotorService motorService;
 	
 	@GetMapping(value = "/motor/lista")
-	public String telaLista(Model model) {
+	public String telaLista(Model model, @SessionAttribute("user") Usuario usuario) {
 		
-		model.addAttribute("listagem", motorService.obterLista());
+		model.addAttribute("listagem", motorService.obterLista(usuario));
 		
 		return "motor/lista";
 	}
@@ -30,7 +32,8 @@ public class MotorController {
 	}
 	
 	@PostMapping(value = "/motor/incluir")
-	public String incluir(Motor motor) {
+	public String incluir(Motor motor, @SessionAttribute("user") Usuario usuario) {
+		motor.setUsuario(usuario);
 		motorService.incluir(motor);
 		return "redirect:/";
 	}

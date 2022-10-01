@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.infnet.appmanutencao.model.domain.Suspensao;
+import br.edu.infnet.appmanutencao.model.domain.Usuario;
 import br.edu.infnet.appmanutencao.model.domain.repository.SuspensaoRepository;
 import br.edu.infnet.appmanutencao.model.test.AppImpressao;
 
@@ -27,5 +28,9 @@ public class SuspensaoService {
 	
 	public Collection<Suspensao> obterLista(){
 		return (Collection<Suspensao>) suspensaoRepository.findAll();
+	}
+	
+	public Collection<Suspensao> obterLista(Usuario usuario){
+		return (Collection<Suspensao>) suspensaoRepository.findAll(usuario.getId());
 	}
 }

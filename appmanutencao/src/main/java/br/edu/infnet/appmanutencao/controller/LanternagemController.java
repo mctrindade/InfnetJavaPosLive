@@ -6,8 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import br.edu.infnet.appmanutencao.model.domain.Lanternagem;
+import br.edu.infnet.appmanutencao.model.domain.Usuario;
 import br.edu.infnet.appmanutencao.service.LanternagemService;
 
 @Controller
@@ -17,9 +19,9 @@ public class LanternagemController {
 	private LanternagemService lanternagemService;
 	
 	@GetMapping(value = "/lanternagem/lista")
-	public String telaLista(Model model) {
+	public String telaLista(Model model, @SessionAttribute("user") Usuario usuario) {
 		
-		model.addAttribute("listagem", lanternagemService.obterLista());
+		model.addAttribute("listagem", lanternagemService.obterLista(usuario));
 		
 		return "lanternagem/lista";
 	}
@@ -30,7 +32,8 @@ public class LanternagemController {
 	}
 	
 	@PostMapping(value = "/lanternagem/incluir")
-	public String incluir(Lanternagem lanternagem) {
+	public String incluir(Lanternagem lanternagem, @SessionAttribute("user") Usuario usuario) {
+		lanternagem.setUsuario(usuario);
 		lanternagemService.incluir(lanternagem);
 		return "redirect:/";
 	}

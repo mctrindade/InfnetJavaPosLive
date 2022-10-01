@@ -5,13 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import br.edu.infnet.appmanutencao.model.domain.Cliente;
@@ -20,12 +19,14 @@ import br.edu.infnet.appmanutencao.model.domain.Manutencao;
 import br.edu.infnet.appmanutencao.model.domain.Motor;
 import br.edu.infnet.appmanutencao.model.domain.Servico;
 import br.edu.infnet.appmanutencao.model.domain.Suspensao;
+import br.edu.infnet.appmanutencao.model.domain.Usuario;
 import br.edu.infnet.appmanutencao.model.domain.exceptions.ClienteNuloException;
 import br.edu.infnet.appmanutencao.model.domain.exceptions.CpfInvalidoException;
 import br.edu.infnet.appmanutencao.model.domain.exceptions.ManutencaoSemServicosException;
 import br.edu.infnet.appmanutencao.service.ManutencaoService;
 
 @Component
+@Order(6)
 public class ManutencaoTeste implements ApplicationRunner {
 
 	@Autowired
@@ -33,46 +34,42 @@ public class ManutencaoTeste implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) {
-		/*Lanternagem la = new Lanternagem();
-		la.setDescricao("Servico 1");
-		la.setSituacao(1);
-		la.setValor(101);
-		la.setCor("azul");
-		la.setLocal("porta do motorista");
-		la.setValorReparo(23);
-
-		Lanternagem la2 = new Lanternagem();
-		la2.setDescricao("Servico 1");
-		la2.setSituacao(2);
-		la2.setValor(101);
-		la2.setCor("azul");
-		la2.setLocal("porta do motorista");
-		la2.setValorReparo(23);
-
-		Motor mo = new Motor();
-		mo.setDescricao("Servico 1");
-		mo.setSituacao(1);
-		mo.setValor(101);
-		mo.setCilindro("em linha");
-		mo.setTamanho(1.4d);
-		mo.setCombustivel("gasolina");
-
-		Suspensao su = new Suspensao();
-		su.setDescricao("Servico 1");
-		su.setSituacao(1);
-		su.setValor(101);
-		su.setAmortecedor("dianteiro");
-		su.setMola("helicoidais");
-		su.setPneu(15);
-		*/
-
-		String dir = "d:/Temp/";
+		try {
+			Usuario usuario = new Usuario();
+			usuario.setId(1);
+			
+			Cliente c1 = new Cliente();
+			c1.setId(1);
+			
+			List<Servico> listaServicos = new ArrayList<>();
+			Motor mo1 = new Motor();
+			mo1.setId(1);
+			listaServicos.add(mo1);
+			Motor mo2 = new Motor();
+			mo2.setId(2);
+			listaServicos.add(mo2);
+			Motor mo3 = new Motor();
+			mo3.setId(3);
+			listaServicos.add(mo3);
+			
+			Manutencao manutencao = new Manutencao(c1, listaServicos);
+			manutencao.setBox(1);
+			manutencao.setPlaca("JEA0000");
+			manutencao.setUsuario(usuario);
+			
+			manutencaoService.incluir(manutencao);
+			
+		} catch (ClienteNuloException | ManutencaoSemServicosException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		/*String dir = "d:/Temp/";
 		String arq = "manutecao.txt";
 
 		try {
 			FileReader fileReader = new FileReader(dir + arq);
 			BufferedReader leitura = new BufferedReader(fileReader);
-			Set<Servico> listaServicos = null;
+			List<Servico> listaServicos = null;
 			List<Manutencao> manutencoes = new ArrayList<>();
 			
 			String linha = leitura.readLine();
@@ -81,7 +78,7 @@ public class ManutencaoTeste implements ApplicationRunner {
 				switch (campos[0]) {
 				case "M":
 					try {
-						listaServicos = new HashSet<>();
+						listaServicos = new ArrayList<>();
 
 						Cliente c1 = new Cliente(campos[4], campos[5], campos[6]);
 						Manutencao m1 = new Manutencao(c1, listaServicos);
@@ -144,7 +141,7 @@ public class ManutencaoTeste implements ApplicationRunner {
 			System.out.println("[ERRO] o arquivo não existe");
 		} finally {
 			System.out.println("Terminou!!");
-		}
+		}*/
 	}
 
 }

@@ -6,12 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import br.edu.infnet.appmanutencao.model.domain.Suspensao;
+import br.edu.infnet.appmanutencao.model.domain.Servico;
 
 @Repository
-public interface SuspensaoRepository extends CrudRepository<Suspensao, Integer> {
+public interface ServicoRepository extends CrudRepository<Servico, Integer> {
 	
-	@Query("from Suspensao s where s.usuario.id = :idUsuario")
-	Collection<Suspensao> findAll(Integer idUsuario);
-
+	@Query("from Servico s where s.usuario.id = :idUsuario")
+	Collection<Servico> findAll(Integer idUsuario);
 }

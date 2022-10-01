@@ -8,13 +8,16 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import br.edu.infnet.appmanutencao.model.domain.Lanternagem;
+import br.edu.infnet.appmanutencao.model.domain.Usuario;
 import br.edu.infnet.appmanutencao.model.domain.exceptions.ValorReparoZeradoException;
 import br.edu.infnet.appmanutencao.service.LanternagemService;
 
 @Component
+@Order(4)
 public class LanternagemTeste implements ApplicationRunner {
 
 	@Autowired
@@ -22,6 +25,8 @@ public class LanternagemTeste implements ApplicationRunner {
 	
 	@Override
 	public void run(ApplicationArguments args) {
+		Usuario usuario = new Usuario();
+		usuario.setId(1);
 		
 		String dir = "d:/Temp/";
 		String arq = "lanternagem.txt";
@@ -34,15 +39,16 @@ public class LanternagemTeste implements ApplicationRunner {
 			while(linha != null) {
 				try {
 					String[] campos = linha.split(";");
-					Lanternagem l1 = new Lanternagem();
-					l1.setDescricao(campos[3]);
-					l1.setSituacao(Integer.valueOf(campos[4]));
-					l1.setValor(Float.valueOf(campos[5]));
-					l1.setCor(campos[0]);
-					l1.setLocal(campos[1]);
-					l1.setValorReparo(Float.valueOf(campos[2]));
-					System.out.println("Calculo de venda: " + l1.calcularVenda());
-					lanternagemService.incluir(l1);
+					Lanternagem lanternagem = new Lanternagem();
+					lanternagem.setDescricao(campos[3]);
+					lanternagem.setSituacao(Integer.valueOf(campos[4]));
+					lanternagem.setValor(Float.valueOf(campos[5]));
+					lanternagem.setCor(campos[0]);
+					lanternagem.setLocal(campos[1]);
+					lanternagem.setValorReparo(Float.valueOf(campos[2]));
+					lanternagem.setUsuario(usuario);
+					System.out.println("Calculo de venda: " + lanternagem.calcularVenda());
+					lanternagemService.incluir(lanternagem);
 				} catch (ValorReparoZeradoException e) {
 					System.out.println("[ERROR - LANTERNAGEM] " + e.getMessage());
 				}

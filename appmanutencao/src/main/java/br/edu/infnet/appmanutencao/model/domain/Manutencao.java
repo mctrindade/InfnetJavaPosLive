@@ -1,23 +1,49 @@
 package br.edu.infnet.appmanutencao.model.domain;
 
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import br.edu.infnet.appmanutencao.interfaces.IPrinter;
 import br.edu.infnet.appmanutencao.model.domain.exceptions.ClienteNuloException;
 import br.edu.infnet.appmanutencao.model.domain.exceptions.ManutencaoSemServicosException;
 
+@Entity
+@Table
 public class Manutencao implements IPrinter {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private int box;
 	private String placa;
 	private LocalDate data;
+	@OneToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name = "idCliente")
 	private Cliente cliente;
-	private Set<Servico> servicos;
+	@ManyToMany(cascade = CascadeType.DETACH)
+	private List<Servico> servicos;
+	@ManyToOne
+	@JoinColumn(name="idUsuario")
+	private Usuario usuario;
 	
-	public Manutencao(Cliente cliente, Set<Servico> servicos) throws ClienteNuloException, ManutencaoSemServicosException {
-		
+	
+	public Manutencao() {
+		this.data = LocalDate.now();
+	}
+
+	public Manutencao(Cliente cliente, List<Servico> servicos) throws ClienteNuloException, ManutencaoSemServicosException {
+		this();
 		if(cliente == null) {
 			throw new ClienteNuloException("Impossivel criar uma Manutenção sem um Cliente!");
 		}
@@ -75,12 +101,20 @@ public class Manutencao implements IPrinter {
 		this.cliente = cliente;
 	}
 
-	public Set<Servico> getServicos() {
+	public List<Servico> getServicos() {
 		return servicos;
 	}
 
-	public void setServicos(Set<Servico> servicos) {
+	public void setServicos(List<Servico> servicos) {
 		this.servicos = servicos;
+	}
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@Override

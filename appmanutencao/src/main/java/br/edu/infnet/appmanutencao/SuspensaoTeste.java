@@ -8,13 +8,16 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import br.edu.infnet.appmanutencao.model.domain.Suspensao;
+import br.edu.infnet.appmanutencao.model.domain.Usuario;
 import br.edu.infnet.appmanutencao.model.domain.exceptions.TamanhoPneuInvalidoException;
 import br.edu.infnet.appmanutencao.service.SuspensaoService;
 
 @Component
+@Order(5)
 public class SuspensaoTeste implements ApplicationRunner {
 	
 	@Autowired
@@ -22,6 +25,9 @@ public class SuspensaoTeste implements ApplicationRunner {
 	
 	@Override
 	public void run(ApplicationArguments args) {
+		
+		Usuario usuario = new Usuario();
+		usuario.setId(1);
 		
 		String dir = "d:/Temp/";
 		String arq = "servico.txt";
@@ -36,15 +42,16 @@ public class SuspensaoTeste implements ApplicationRunner {
 				String[] campos = linha.split(";");
 				if("S".equalsIgnoreCase(campos[0])) {
 					try {
-						Suspensao s1 = new Suspensao();
-						s1.setPneu(Integer.valueOf(campos[1]));
-						s1.setAmortecedor(campos[2]);
-						s1.setMola(campos[3]);
-						s1.setDescricao(campos[4]);
-						s1.setSituacao(Integer.valueOf(campos[5]));
-						s1.setValor(Float.valueOf(campos[6]));
-						System.out.println("Calculo de venda: " + s1.calcularVenda());
-						suspensaoService.incluir(s1);
+						Suspensao suspensao = new Suspensao();
+						suspensao.setPneu(Integer.valueOf(campos[1]));
+						suspensao.setAmortecedor(campos[2]);
+						suspensao.setMola(campos[3]);
+						suspensao.setDescricao(campos[4]);
+						suspensao.setSituacao(Integer.valueOf(campos[5]));
+						suspensao.setValor(Float.valueOf(campos[6]));
+						suspensao.setUsuario(usuario);
+						System.out.println("Calculo de venda: " + suspensao.calcularVenda());
+						suspensaoService.incluir(suspensao);
 					} catch (TamanhoPneuInvalidoException e) {
 						System.out.println("[ERROR - SUSPENSAO] " + e.getMessage());
 					}

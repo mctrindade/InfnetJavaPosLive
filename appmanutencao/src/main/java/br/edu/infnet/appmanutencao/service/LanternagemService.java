@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.infnet.appmanutencao.model.domain.Lanternagem;
+import br.edu.infnet.appmanutencao.model.domain.Usuario;
 import br.edu.infnet.appmanutencao.model.domain.repository.LanternagemRepository;
 import br.edu.infnet.appmanutencao.model.test.AppImpressao;
 
@@ -26,6 +27,10 @@ public class LanternagemService {
 	
 	public Collection<Lanternagem> obterLista(){
 		return (Collection<Lanternagem>) lanternagemRepository.findAll();
+	}
+	
+	public Collection<Lanternagem> obterLista(Usuario usuario){
+		return (Collection<Lanternagem>) lanternagemRepository.findAll(usuario.getId());
 	}
 	
 	

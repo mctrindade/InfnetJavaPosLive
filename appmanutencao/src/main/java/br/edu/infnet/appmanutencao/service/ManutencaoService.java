@@ -1,34 +1,38 @@
 package br.edu.infnet.appmanutencao.service;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.time.LocalDate;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.infnet.appmanutencao.model.domain.Manutencao;
+import br.edu.infnet.appmanutencao.model.domain.Usuario;
+import br.edu.infnet.appmanutencao.model.domain.repository.ManutencaoRepository;
 import br.edu.infnet.appmanutencao.model.test.AppImpressao;
 
 @Service
 public class ManutencaoService {
 	
-	private static Map<Integer, Manutencao> mapManutencao = new HashMap<>();
-	private static Integer id = 1;
+	@Autowired
+	private ManutencaoRepository manutencaoRepository;
 	
 	public void incluir(Manutencao manutencao) {
-		manutencao.setId(id++);
-		
-		mapManutencao.put(manutencao.getId(), manutencao);
+		manutencaoRepository.save(manutencao);
 		
 		AppImpressao.relatorio("Inclusao manutencao "+ manutencao.getPlaca()+ " realizada com sucesso!!", manutencao);
 	}
 	
 	public void excluir(Integer id) {
-		mapManutencao.remove(id);
+		manutencaoRepository.deleteById(id);
 	}
 	
-	public Collection<Manutencao> obterLista(){
-		return mapManutencao.values();
+	public List<Manutencao> obterLista(){
+		return (List<Manutencao>) manutencaoRepository.findAll();
+	}
+	
+	public List<Manutencao> obterLista(Usuario usuario){
+		return (List<Manutencao>) manutencaoRepository.findAll(usuario.getId());
 	}
 	
 }
